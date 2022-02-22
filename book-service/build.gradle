@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation project(':api')
+    implementation project(':util')
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'

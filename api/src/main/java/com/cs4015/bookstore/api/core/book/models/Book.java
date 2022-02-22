@@ -1,9 +1,9 @@
-package com.cs4015.bookstore.api.core.book.model;
+package com.cs4015.bookstore.api.core.book.models;
 
 import java.util.List;
 
 public abstract class Book {
-    private Integer bookId;
+    private Long bookId;
     private BookType bookType;
     private String title;
     private List<String> authors;
@@ -12,7 +12,7 @@ public abstract class Book {
     private String photoUrls;
 
 
-    public Book(Integer bookId, BookType bookType, String title, List<String> authors, double price, String photoUrls) {
+    public Book(Long bookId, BookType bookType, String title, List<String> authors, double price, String photoUrls) {
         this.bookId = bookId;
         this.title = title;
         this.authors = authors;
@@ -21,11 +21,11 @@ public abstract class Book {
         this.bookType = bookType;
     }
 
-    public Integer getBookId() {
+    public Long getBookId() {
         return bookId;
     }
 
-    public void setBookId(Integer bookId) {
+    public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 
