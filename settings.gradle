@@ -1,0 +1,4 @@
+rootProject.name = 'cs-4015-project'
+include ':api'
+include ':util'
+include ':book-service'
