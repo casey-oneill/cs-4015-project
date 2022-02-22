@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.cs4015.projects'
+group = 'com.cs4015.bookstore.core.book'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':api')
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
