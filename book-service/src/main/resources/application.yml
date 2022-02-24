@@ -1,10 +1,10 @@
-server.port: 7001
+server.port: 8080
 server.error.include-message: always
 
 logging:
-level:
-root: INFO
-com.cs4015.bookstore: DEBUG
+  level:
+    root: INFO
+    com.cs4015.bookstore: DEBUG
 
 ---
 spring.config.activate.on-profile: docker
