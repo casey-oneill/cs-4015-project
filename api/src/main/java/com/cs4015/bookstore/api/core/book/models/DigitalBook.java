@@ -1,4 +1,4 @@
-package com.cs4015.bookstore.api.core.book.model;
+package com.cs4015.bookstore.api.core.book.models;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ public class DigitalBook extends Book{
     private DigitalFormat digitalFormat;
     private String url;
 
-    public DigitalBook(Integer bookId, BookType bookType, String title, List<String> authors, double price, String photoUrls) {
+    public DigitalBook(Long bookId, BookType bookType, String title, List<String> authors, double price, String photoUrls) {
         super(bookId, bookType, title, authors, price, photoUrls);
     }
 
-    public DigitalBook(Integer bookId, BookType bookType, String title, List<String> authors, double price, String photoUrls, DigitalFormat digitalFormat, String url) {
+    public DigitalBook(Long bookId, BookType bookType, String title, List<String> authors, double price, String photoUrls, DigitalFormat digitalFormat, String url) {
         super(bookId, bookType, title, authors, price, photoUrls);
         this.digitalFormat = digitalFormat;
         this.url = url;

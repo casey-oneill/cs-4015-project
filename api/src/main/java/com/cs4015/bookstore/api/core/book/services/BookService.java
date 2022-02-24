@@ -1,7 +1,9 @@
-package com.cs4015.bookstore.api.core.book.service;
+package com.cs4015.bookstore.api.core.book.services;
 
-import com.cs4015.bookstore.api.core.book.model.Book;
+import com.cs4015.bookstore.api.core.book.models.Book;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 public interface BookService {
@@ -48,4 +50,18 @@ public interface BookService {
      */
     @DeleteMapping("/books/{bookId}")
     void deleteBook(@PathVariable long bookId);
+
+    /**
+     * Get all books with pagination.
+     * @param page the page number
+     * @param offset the number of the rows in one page
+     * @return a list of Books.
+     */
+    @GetMapping(
+            value = "/books",
+            produces = "application/json"
+    )
+    List<Book> getAllBooks(@RequestParam("page") int page, @RequestParam("offset") int offset);
 }
+
+
