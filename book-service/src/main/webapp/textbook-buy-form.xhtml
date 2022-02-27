@@ -6,17 +6,16 @@
                 template="#{layoutMB.template}">
 
     <ui:define name="metadata">
-        <ui:param name="title" value="Car listing"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+        <ui:param name="title" value="Textbook Listing"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
         <style type="text/css">
             .ui-datatable .ui-datatable-header {
                 text-align: right !important;
             }
-
         </style>
     </ui:define>
 
     <ui:define name="description">
-        Find cars by name, price and model
+        Find textbooks by name, price and model
     </ui:define>
 
     <ui:define name="body">
@@ -73,7 +72,7 @@
                         <p:ajax event="toggleSelect" update="@(.ui-button, .ui-confirm-dialog)"/>
 
                         <f:facet name="header">
-                            Find Car by id: <p:inputNumber id="inptId" decimalPlaces="0" value="#{carListMB.id}"/>
+                            Find textbook by id: <p:inputNumber id="inptId" decimalPlaces="0" value="#{carListMB.id}"/>
                             <p:spacer height="5"/>
                             <p:commandButton id="brFind"
                                              value="Find"
@@ -127,8 +126,6 @@
                                  icon="fa fa-close"/>
             </p:confirmDialog>
         </h:form>
-
-
 
         <p:dialog header="Selected cars" widgetVar="selectedCars" height="250"
                   width="400" responsive="true" styleClass="box-success">

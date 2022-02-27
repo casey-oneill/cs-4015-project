@@ -30,7 +30,7 @@ public class LogonMB {
     }
 
     public String getCurrentUser() {
-        return currentUser;
+        return "Test User";
     }
 
     public void setCurrentUser(String currentUser) {
@@ -39,7 +39,6 @@ public class LogonMB {
 
     public void login() {
         try {
-            setCurrentUser("John Doe");
             Faces.redirect("index.jsf");
         } catch (IOException e) {
             e.printStackTrace();
