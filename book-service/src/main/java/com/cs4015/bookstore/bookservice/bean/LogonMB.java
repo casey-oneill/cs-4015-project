@@ -37,8 +37,12 @@ public class LogonMB {
         this.currentUser = currentUser;
     }
 
-    public void Login() throws IOException {
-        setCurrentUser("John Doe");
-        Faces.redirect("index.jsf");
+    public void login() {
+        try {
+            setCurrentUser("John Doe");
+            Faces.redirect("index.jsf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
