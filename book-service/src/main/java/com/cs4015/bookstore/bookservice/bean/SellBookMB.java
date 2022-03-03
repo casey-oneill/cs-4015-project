@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import lombok.Data;
 
@@ -39,6 +41,8 @@ public class SellBookMB {
 	public void save() {
 		// TODO: Create Book object using BookFactory
 		// TODO: Connect to API
+
+		FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage("Posting created successfully."));
 	}
 
 	public void addAuthor() {
