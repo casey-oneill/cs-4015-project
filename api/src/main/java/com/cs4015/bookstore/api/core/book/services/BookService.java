@@ -1,11 +1,16 @@
 package com.cs4015.bookstore.api.core.book.services;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@Tag(name = "BookService", description =
+        "REST API for book information.")
 public interface BookService {
 
     /**
@@ -14,6 +19,15 @@ public interface BookService {
      * @param bookId Id of the book.
      * @return the book, if found, else null.
      */
+    @Operation(
+            summary = "${api.book-service.get-book.description}",
+            description = "${api.book-service.get-book.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
+            @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}"),
+            @ApiResponse(responseCode = "404", description = "${api.responseCodes.notFound.description}"),
+            @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
+    })
     @GetMapping(
             value = "/books/{bookId}",
             produces = "application/json")
