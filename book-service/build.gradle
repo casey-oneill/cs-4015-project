@@ -32,8 +32,12 @@ dependencies {
     implementation 'org.primefaces:primefaces:10.0.0'
     implementation 'org.omnifaces:omnifaces:1.14.1'
 
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.3'
     implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.6.3'
+
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
