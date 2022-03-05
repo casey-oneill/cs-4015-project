@@ -30,7 +30,8 @@ public class BookServiceImpl implements BookService {
         logger.info("/books return a book.");
         List<String> authors = new ArrayList<>();
         authors.add("AAA BBB");
-        return new PaperBackBook(bookId, BookType.PAPERBACK,"ABC", authors, 99.99, "https://abc/abc.jpg", Condition.LIKENEW);
+        String desc = "Used for class CS4015. Condition like new.";
+        return new PaperBackBook(bookId, BookType.PAPERBACK,"ABC", authors, desc, 99.99, "https://abc/abc.jpg", Condition.LIKENEW);
     }
 
     @Override
