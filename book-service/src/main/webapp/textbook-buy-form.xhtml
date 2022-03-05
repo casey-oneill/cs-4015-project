@@ -1,140 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:adm="http://github.com/adminfaces"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="#{layoutMB.template}">
 
     <ui:define name="metadata">
-        <ui:param name="title" value="Textbook Listing"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
-        <style type="text/css">
-            .ui-datatable .ui-datatable-header {
-                text-align: right !important;
-            }
-        </style>
+        <ui:param name="title" value="Textbook Listings"/>
     </ui:define>
 
     <ui:define name="description">
-        Find textbooks by name, price and model
+        Browse textbook listings
     </ui:define>
 
     <ui:define name="body">
         <h:form>
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton action="car-form?faces-redirect=true" icon="fa fa-plus"
-                                         value="New" styleClass="btn-primary"/>
-                        <p:spacer width="5"/>
-                        <p:commandButton value="Delete Selected" icon="fa fa-trash" styleClass="btn-danger"
-                                         action="#{carListMB.delete}"
-                                         disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
-                                         process="@this" update="@form"
-                        >
-                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
-                        </p:commandButton>
-                        <p:spacer width="5"/>
-                        <p:commandButton value="View selected" update="@(.ui-dialog)" styleClass="btn-info"
-                                         disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
-                                         oncomplete="PF('selectedCars').show()" icon="fa fa-search"/>
-                    </div>
+            <p:panel header="Textbooks">
+                <p:toolbar>
+                    <p:toolbarGroup style="margin: 10px;">
+                        <p:outputLabel for="@next" value="Title" style="margin-right: 5px;" />
+                        <p:inputText id="title" value="#{buyBookMB.title}" />
 
-                    <p:splitButton value="New" action="car-form?faces-redirect=true"
-                                   icon="fa fa-plus"
-                                   styleClass="hidden-md hidden-lg btn-primary">
-                        <p:menuitem value="Delete Selected" action="#{carListMB.delete}"
-                                    process="@this" update="@form"
-                                    disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
-                                    icon="fa fa-trash">
-                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
-                        </p:menuitem>
-                        <p:menuitem value="View selected" update="@(.ui-dialog)"
-                                    oncomplete="PF('selectedCars').show()"
-                                    disabled="#{empty carListMB.selectedCars or carListMB.selectedCars.size() == 0}"
-                                    icon="fa fa-search"
-                        />
-                    </p:splitButton>
+                        <p:outputLabel for="@next" value="Author" style="margin-right: 5px; margin-left: 10px;" />
+                        <p:inputText id="author" value="#{buyBookMB.author}" />
 
-                    <p:separator/>
-                    <p:dataTable widgetVar="carsTable" var="c" value="#{carListMB.cars}" rows="5"
-                                 rowKey="#{c.id}" lazy="true" paginator="true"
-                                 filteredValue="#{carListMB.filteredValue}"
-                                 paginatorPosition="bottom" selection="#{carListMB.selectedCars}"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
-                                 currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
-                                 rowsPerPageTemplate="5,10,15,20,30"
-                            >
+                        <p:outputLabel for="@next" value="Price Range" style="margin-right: 5px; margin-left: 10px;" />
+                        <p:inputNumber id="minPrice" value="#{buyBookMB.minPrice}" placeholder="Min Price" symbol="$" symbolPosition="p" decimalSeparator="." thousandSeparator="," />
+                         - 
+                        <p:inputNumber id="maxPrice" value="#{buyBookMB.maxPrice}" placeholder="Max Price" symbol="$" symbolPosition="p" decimalSeparator="." thousandSeparator="," />
 
-                        <p:ajax event="rowSelectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
-                        <p:ajax event="rowUnselectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
-                        <p:ajax event="rowSelect" update="@(.ui-button, .ui-confirm-dialog)"/>
-                        <p:ajax event="rowUnselect" update="@(.ui-button, .ui-confirm-dialog)"/>
-                        <p:ajax event="toggleSelect" update="@(.ui-button, .ui-confirm-dialog)"/>
+                        <p:outputLabel for="@next" value="Format" style="margin-right: 5px; margin-left: 10px;" />
+                        <p:selectOneMenu  id="format" value="#{buyBookMB.bookType}">
+                            <f:selectItem itemLabel="Select One" itemValue="#{null}"/>
+                            <f:selectItems value="#{enumValuesProvider.bookTypes()}" var="format" itemValue="#{format}" itemLabel="#{format.name()}"/>
+                        </p:selectOneMenu >
 
-                        <f:facet name="header">
-                            Find textbook by id: <p:inputNumber id="inptId" decimalPlaces="0" value="#{carListMB.id}"/>
-                            <p:spacer height="5"/>
-                            <p:commandButton id="brFind"
-                                             value="Find"
-                                             action="#{carListMB.findCarById(carListMB.id)}"
-                                             process="@form"
-                                             update="@form"
-                                             styleClass="btn-flat bg-black btn-states"
-                                             partialSubmit="true"/>
-                        </f:facet>
-                        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>
+                        <p:commandButton value="Search" icon="fa fa-magnifying-glass" action="#{buyBookMB.filter()}" update="@parent" style="margin-left: 10px;" />
+                    </p:toolbarGroup>
+                </p:toolbar>
 
-                        <p:column headerText="Model" filterBy="#{c.model}" sortBy="#{c.model}"
-                                  filterMatchMode="contains">
-                            <f:facet name="filter">
-                                <p:autoComplete value="#{carListMB.filter.entity.model}" forceSelection="true"
-                                                minQueryLength="2" queryDelay="500"
-                                                completeMethod="#{carListMB.completeModel}" maxResults="10">
-                                    <p:ajax event="itemSelect" process="@this" update="@none"
-                                            oncomplete="PF('carsTable').filter()"/>
-                                </p:autoComplete>
-                            </f:facet>
-                             <p:link value="#{c.model}" outcome="car-form.xhtml" >
-                                <f:param name="id" value="#{c.id}"/>
-                            </p:link>
+                <div class="p-grid">
+                    <p:autoUpdate />
+                    <p:repeat value="#{buyBookMB.filteredBooks}" var="book">
+                        <div class="p-col-12">
+                            <p:panel class="book-listing">
+                                <f:facet name="header">
+                                    <div style="margin-bottom: 10px;">
+                                        <b>#{book.title}</b>
+                                    </div>
+                                    <div>
+                                        <h:outputText value="#{book.price}">
+                                            <f:convertNumber pattern="$#0.00" locale="en_US"/>
+                                        </h:outputText>
+                                    </div>
+                                </f:facet>
 
-                        </p:column>
-                        <p:column headerText="Name" sortBy="#{c.name}" filterBy="#{c.name}">
-                            <f:facet name="filter">
-                                <p:inputText value="#{carListMB.filter.entity.name}">
-                                    <p:ajax process="@this" update="@none" oncomplete="PF('carsTable').filter()"/>
-                                </p:inputText>
-                            </f:facet>
-                            #{c.name}
-                        </p:column>
-                        <p:column headerText="Price" sortBy="#{c.price}" filterBy="#{c.price}">
-                            <f:facet name="filter">
-                                <p:spinner value="#{carListMB.filter.entity.price}">
-                                    <f:converter converterId="javax.faces.Double"/>
-                                    <p:ajax process="@this" update="@none" oncomplete="PF('carsTable').filter()"/>
-                                </p:spinner>
-                            </f:facet>
-                            #{c.price}
-                        </p:column>
-                    </p:dataTable>
+                                <p:panelGrid columns="2" styleClass="ui-noborder">
+                                    <p:graphicImage url="#{book.photoUrls}" width="200" height="200" />
+                                    <p:row>
+                                        <b>Book Format</b>
+                                        <p>
+                                            #{book.bookType.name()}
+                                            <i>
+                                                (
+                                                <ui:fragment rendered="#{book.bookType != enumValuesProvider.digitalBookType()}">
+                                                    #{book.condition.name()}
+                                                </ui:fragment>
+
+                                                <ui:fragment rendered="#{book.bookType == enumValuesProvider.digitalBookType()}">
+                                                    #{book.digitalFormat.name()}
+                                                </ui:fragment>
+                                                )
+                                            </i>
+                                        </p>
+                                        <p>
+                                            <b>Authors</b>
+                                            <ui:repeat value="#{book.authors}" var="author">
+                                                <br/>
+                                                #{author}
+                                            </ui:repeat>
+                                        </p>
+                                        <b>Details</b>
+                                        <p>#{book.description}</p>
+
+                                        <!-- TODO: Connect to User information -->
+                                        <b>Contact</b>
+                                        <p>
+                                            [Username]
+                                            <br/>
+                                            [User email]
+                                        </p>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:panel>
+                        </div>
+                    </p:repeat>
                 </div>
-            </div>
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="box-danger box-solid">
-                <p:commandButton value="Yes" type="button" styleClass="btn-material btn-primary ui-confirmdialog-yes"
-                                 icon="fa fa-check"/>
-                <p:commandButton value="No" type="button" styleClass="btn-material btn-danger ui-confirmdialog-no"
-                                 icon="fa fa-close"/>
-            </p:confirmDialog>
+            </p:panel>
         </h:form>
-
-        <p:dialog header="Selected cars" widgetVar="selectedCars" height="250"
-                  width="400" responsive="true" styleClass="box-success">
-            <p:dataList id="selectedCarsList" value="#{carListMB.selectedCars}" var="car"
-                        type="definition">
-                ID: #{car.id} - Name: #{car.name} - Model: #{car.model}
-            </p:dataList>
-        </p:dialog>
-
     </ui:define>
 
 </ui:composition>

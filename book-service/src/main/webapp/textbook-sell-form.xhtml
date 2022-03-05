@@ -67,7 +67,7 @@
                             <f:selectItems value="#{enumValuesProvider.bookTypes()}" var="bookType" itemValue="#{bookType}" itemLabel="#{bookType.name()}"/>
                         </p:selectOneListbox>
                     </div>
-    
+
                     <c:if test="#{sellBookMB.bookType != enumValuesProvider.digitalBookType()}">
                         <div class="p-col-12">
                             <p:outputLabel for="@next" value="Condition"/>
