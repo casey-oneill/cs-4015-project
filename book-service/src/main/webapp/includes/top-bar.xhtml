@@ -12,32 +12,22 @@
         #layout-menu_menu span.ui-menuitem-text {
             margin-left: 2px;
         }
-
     </style>
+
     <ul class="nav navbar-nav">
         <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="hidden-xs">
-                    <p:avatar icon="pi pi-user" styleClass="p-mr-2" size="xlarge" style="background-color:#2196F3; color:#fff" />
-                    #{logonMB.currentUser}
-                </span>
+                <p:avatar label="#{logonMB.user.fullName.charAt(0)}" shape="circle" style="background-color:#ecf0f5; color:#333; margin-right: 5px;"/>
+                <i class="fa fa-angle-down"/>
             </a>
-            <ul class="dropdown-menu">
-                <li class="user-header">
-                    <p>
-                        <p:avatar icon="pi pi-user" styleClass="p-mr-2" size="xlarge" style="background-color:#2196F3; color:#fff" />
-                        #{logonMB.currentUser}
-                    </p>
-                </li>
-                <li class="user-footer">
-                    <h:form prependId="false">
-                        <div class="pull-right">
-                            <p:commandLink id="logout" action="#{logoutMB.doLogout}" title="Logoff">
-                                <i class="fa fa-sign-out fa-2x"></i>
-                            </p:commandLink>
-                        </div>
-                    </h:form>
-                </li>
+
+            <ul class="dropdown-menu" style="background: none;">
+                <h:form>
+                    <p:menu style="float: right;">
+                        <p:menuitem value="Profile" outcome="/profile" icon="pi pi-user"/>
+                        <p:menuitem value="Log Out" action="#{logonMB.logout()}" icon="pi pi-external-link"/>
+                    </p:menu>
+                </h:form>
             </ul>
         </li>
     </ul>
