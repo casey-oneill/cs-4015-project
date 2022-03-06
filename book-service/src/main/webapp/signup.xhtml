@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:adm="http://github.com/adminfaces"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Book Swap</title>
+        <link rel="icon" type="image/x-icon" href="../../resources/images/book-solid.svg"/>
+        <meta name="theme-color" content="#444"/>
+        <link rel="manifest" href="manifest.json"/>
+        <link rel="stylesheet" href="../../resources/css/style.css"/>
+        <style type="text/css">
+            body.login-page {
+                background-color: transparent;
+            }
+
+            html {
+                background-color: #3c8dbc;
+            }
+        </style>
+    </h:head>
+
+    <h:body styleClass="hold-transition login-page">
+        <div id="loader" class="load-bar" style="display: none">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <h:form>
+            <div class="login-box">
+
+                <p:panel style="margin-bottom: 25px; padding: 10px;">
+                    <div class="login-logo">
+                        <b>Book</b>Swap
+                    </div>
+
+                    <h4 class="login-box-msg">Sign up to buy and sell used textbooks.</h4>
+					
+                    <p:messages closable="true"/>
+
+					<div class="form-group has-feedback">
+                        <p:inputText value="#{signupMB.user.email}" styleClass="form-control" placeholder="Email" required="true" requiredMessage="Email is required."/>
+                        <i class="fa fa-envelope form-control-feedback" style="font-size: 18px"/>
+                    </div>
+					<div class="form-group has-feedback">
+                        <p:inputText value="#{signupMB.user.phone}" styleClass="form-control" placeholder="Phone Number" required="true" requiredMessage="Phone number is required."/>
+                        <i class="fa fa-phone form-control-feedback" style="font-size: 18px"/>
+                    </div>
+					<div class="form-group has-feedback">
+                        <p:inputText value="#{signupMB.user.fullName}" styleClass="form-control" placeholder="Full Name" required="true" requiredMessage="Full name is required."/>
+                        <i class="fa fa-address-card form-control-feedback" style="font-size: 18px"/>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <p:inputText value="#{signupMB.user.username}" styleClass="form-control" placeholder="Username" required="true" requiredMessage="Username is required."/>
+                        <i class="fa fa-user form-control-feedback" style="font-size: 18px"/>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <p:inputText value="#{signupMB.user.password}" type="password" styleClass="form-control" placeholder="Password" required="true" requiredMessage="Password is required."/>
+                        <i class="fa fa-lock form-control-feedback" style="font-size: 18px"/>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 25px;">
+                        <div class="col-xs-12">
+                            <p:commandButton styleClass="btn btn-primary btn-block" value="Sign Up" action="#{logonMB.login}" update="@form"/>
+                        </div>
+                    </div>
+
+					<p style="text-align: center;">By signing up, you agree to share your information with other users.</p>
+                </p:panel>
+                
+                <p:panel>
+                    <div style="padding: 10px; text-align: center;">
+                        Have an account? 
+                        <p:link outcome="logon">
+                            <h:outputText value="Log in"/>
+                        </p:link>
+                    </div>
+                </p:panel>
+            </div>
+        </h:form>
+        <h:outputScript library="js" name="admintemplate.js" target="head"/>
+    </h:body>
+</html>
