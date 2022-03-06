@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="#{layoutMB.template}">
+
+    <ui:define name="title">
+        Profile
+    </ui:define>
+
+    <ui:define name="description">
+        Your information is shared with other users
+    </ui:define>
+    
+    <ui:define name="body">        
+		<p:panel header="Profile Details" style="margin-bottom: 25px;">
+			<f:facet name="header">
+				<p:avatar label="#{logonMB.user.fullName.charAt(0)}" shape="circle" style="background-color:#2196F3; color:#fff;"/>
+				#{logonMB.user.fullName}
+			</f:facet>
+
+			<b>Username</b>
+			<p>#{logonMB.user.username}</p>
+
+			<b>Email</b>
+			<p>#{logonMB.user.email}</p>
+
+			<b>Phone Number</b>
+			<p>#{logonMB.user.phone}</p>
+		</p:panel>
+
+		<p:panel header="My Reviews" style="margin-bottom: 25px;">
+			
+		</p:panel>
+
+		<p:panel header="My Listings">
+			
+		</p:panel>
+    </ui:define>
+
+</ui:composition>

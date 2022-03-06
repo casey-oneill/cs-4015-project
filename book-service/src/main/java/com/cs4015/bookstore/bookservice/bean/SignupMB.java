@@ -2,8 +2,6 @@ package com.cs4015.bookstore.bookservice.bean;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import com.cs4015.bookstore.api.core.book.models.User;
 import com.cs4015.bookstore.api.core.book.services.BookService;
