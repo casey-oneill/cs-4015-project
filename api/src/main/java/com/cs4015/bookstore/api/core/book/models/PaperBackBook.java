@@ -5,12 +5,12 @@ import java.util.List;
 public class PaperBackBook extends Book{
     private Condition condition;
 
-    public PaperBackBook(Long bookId, String title, List<String> authors, double price, String photoUrls, BookType bookType) {
-        super(bookId, bookType, title, authors, price, photoUrls);
+    public PaperBackBook(Long bookId, String title, List<String> authors, double price, String description, String photoUrls, BookType bookType) {
+        super(bookId, bookType, title, authors, description, price, photoUrls);
     }
 
-    public PaperBackBook(Long bookId, BookType bookType, String title, List<String> authors, double price, String photoUrls, Condition condition) {
-        super(bookId, bookType, title, authors, price, photoUrls);
+    public PaperBackBook(Long bookId, BookType bookType, String title, List<String> authors, String description, double price, String photoUrls, Condition condition) {
+        super(bookId, bookType, title, authors, description, price, photoUrls);
         this.condition = condition;
     }
 
