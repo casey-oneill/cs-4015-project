@@ -1,45 +1,58 @@
 package com.cs4015.bookstore.bookservice.bean;
 
 import java.io.IOException;
-import javax.annotation.ManagedBean;
+import com.cs4015.bookstore.api.core.book.models.User;
+import com.cs4015.bookstore.api.core.book.services.BookService;
+
 import org.omnifaces.util.Faces;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-@ManagedBean("logonMB")
+import lombok.Data;
+
+@Component("logonMB")
 @SessionScope
+@Data
 public class LogonMB {
+
+    private BookService bookService;
 
     private String username;
     private String password;
-    private String currentUser;
+    
+    private User user;
 
-    public String getUsername() {
-        return username;
-    }
+    @Autowired
+	public LogonMB(@Qualifier("mockService") BookService bookService) {
+		this.bookService = bookService;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCurrentUser() {
-        return "Test User";
-    }
-
-    public void setCurrentUser(String currentUser) {
-        this.currentUser = currentUser;
+    public User getUser() {
+        // TODO: Connect to User API
+        return new User(
+            "johndoe123",
+            "John Doe",
+            "abc123",
+            "johnd@email.com",
+            "15065555555"
+        );
     }
 
     public void login() {
         try {
+            // TODO: Connect to User API
             Faces.redirect("index.jsf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void logout() {
+        try {
+            Faces.redirect("logon.jsf");
+            this.user = null;
         } catch (IOException e) {
             e.printStackTrace();
         }
