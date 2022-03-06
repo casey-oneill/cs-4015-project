@@ -46,7 +46,7 @@
                         <i class="fa fa-envelope form-control-feedback" style="font-size: 18px"/>
                     </div>
 					<div class="form-group has-feedback">
-                        <p:inputText value="#{signupMB.user.phone}" styleClass="form-control" placeholder="Phone Number" required="true" requiredMessage="Phone number is required."/>
+                        <p:inputMask value="#{signupMB.user.phone}" styleClass="form-control" mask="(999) 999-9999" placeholder="Phone Number" validateMask="true" required="true" requiredMessage="Phone number is required."/>
                         <i class="fa fa-phone form-control-feedback" style="font-size: 18px"/>
                     </div>
 					<div class="form-group has-feedback">
