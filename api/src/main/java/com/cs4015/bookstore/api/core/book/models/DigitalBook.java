@@ -7,12 +7,12 @@ public class DigitalBook extends Book{
     private DigitalFormat digitalFormat;
     private String url;
 
-    public DigitalBook(Long bookId, BookType bookType, String title, List<String> authors, String description, double price, String photoUrls) {
+    public DigitalBook(Long bookId, String bookType, String title, List<String> authors, String description, double price, String photoUrls) {
         super(bookId, bookType, title, authors, description, price, photoUrls);
     }
 
-    public DigitalBook(Long bookId, BookType bookType, String title, List<String> authors, String description, double price, String photoUrls, DigitalFormat digitalFormat, String url) {
-        super(bookId, bookType, title, authors, description, price, photoUrls);
+    public DigitalBook(Long bookId, String bookType, String title, List<String> authors, String description, double price, String photoUrls, DigitalFormat digitalFormat, String url) {
+        super(bookId, bookType, title, authors,description, price, photoUrls);
         this.digitalFormat = digitalFormat;
         this.url = url;
     }

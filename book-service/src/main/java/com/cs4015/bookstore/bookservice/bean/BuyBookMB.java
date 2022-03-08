@@ -28,7 +28,7 @@ public class BuyBookMB {
 	private String author;
 	private Double minPrice;
 	private Double maxPrice;
-	private BookType bookType;
+	private String bookType;
 
 	@Autowired
 	public BuyBookMB(@Qualifier("mockService") BookService bookService) {

@@ -5,11 +5,13 @@ import java.util.List;
 public class HardCoverBook extends Book{
     private Condition condition;
 
-    public HardCoverBook(Long bookId, BookType bookType, String title, List<String> authors, String description, double price, String photoUrls) {
+    public HardCoverBook(){}
+
+    public HardCoverBook(Long bookId, String bookType, String title, List<String> authors, String description, double price, String photoUrls) {
         super(bookId, bookType, title, authors, description, price, photoUrls);
     }
 
-    public HardCoverBook(Long bookId, BookType bookType, String title, List<String> authors, String description, double price, String photoUrls,  Condition condition) {
+    public HardCoverBook(Long bookId, String bookType, String title, List<String> authors, String description, double price, String photoUrls,  Condition condition) {
         super(bookId, bookType, title, authors, description, price, photoUrls);
         this.condition = condition;
     }
