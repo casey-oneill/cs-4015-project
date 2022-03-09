@@ -33,7 +33,7 @@ public class BookServiceMockImpl implements BookService {
 
 		String desc = "Used for class CS4015. Condition like new.";
 		
-        return new PaperBackBook(bookId, BookType.PAPERBACK, "Design Patterns: Elements of Reusable Software", authors, desc, 99.99, "https://abc/abc.jpg", Condition.LIKENEW);
+        return new PaperBackBook(bookId, "PAPERBACK", "Design Patterns: Elements of Reusable Software", authors, desc, 99.99, "https://abc/abc.jpg", Condition.LIKENEW);
     }
 
     @Override
@@ -71,9 +71,9 @@ public class BookServiceMockImpl implements BookService {
 		String desc3 = "Selling copy of my digital Dive into Design Patterns textbook.";
 
         return Arrays.asList(
-			new PaperBackBook(1L, BookType.PAPERBACK, "Design Patterns: Elements of Reusable Software", authors1, desc1, 99.99, "https://via.placeholder.com/150", Condition.LIKENEW),
-			new HardCoverBook(2L, BookType.HARDCOVER, "Software Architecture in Practice", authors2, desc2, 60.00, "https://via.placeholder.com/200", Condition.FAIR),
-			new DigitalBook(3L, BookType.DIGITAL, "Dive into Design Patterns", Arrays.asList("Alexander Shvets"), desc3, 25.99, "https://via.placeholder.com/300", DigitalFormat.EPUB, "https://myurl/textbook")
+			new PaperBackBook(1L, "PAPERBACK", "Design Patterns: Elements of Reusable Software", authors1, desc1, 99.99, "https://via.placeholder.com/150", Condition.LIKENEW),
+			new HardCoverBook(2L, "HARDCOVER", "Software Architecture in Practice", authors2, desc2, 60.00, "https://via.placeholder.com/200", Condition.FAIR),
+			new DigitalBook(3L, "DIGITAL", "Dive into Design Patterns", Arrays.asList("Alexander Shvets"), desc3, 25.99, "https://via.placeholder.com/300", DigitalFormat.EPUB, "https://myurl/textbook")
 		);
     }
 }
