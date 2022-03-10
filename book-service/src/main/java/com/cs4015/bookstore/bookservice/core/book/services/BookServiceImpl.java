@@ -1,3 +1,4 @@
+
 package com.cs4015.bookstore.bookservice.core.book.services;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
@@ -55,8 +56,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book replaceBook(Book book, long bookId) {
-        return null;
+    public Book updateBook(Book book, long bookId){
+        logger.debug("POST: /books, update a book {}", book);
+        if(bookId < 1){
+            throw new InvalidInputException("Invalid bookId: " + bookId);
+        }
+        BookEntity bookEntity = repository.findById(bookId).orElseThrow(()-> new NotFoundException("No book found for productId: " + bookId));
+        repository.deleteInBatch(bookEntity);
+        BookEntity upBookEntity = reponsitory = bookApiToEntityMapper.bookApiToEntity(book);
+        bookEntity newEntity = repository.save(upBookEntity);
+        return bookEntityToApiMapper.bookEntityToApi(newEntity);
     }
 
     @Override
@@ -74,8 +83,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(long bookId) {
-
+    public void deleteBook(long bookId){
+        logger.debug("POST: /books, delete a book {}", book);
+        if(bookId < 1){
+            throw new InvalidInputException("Invalid bookId: " + bookId);
+        }
+        BookEntity bookEntity = repository.findById(bookId).orElseThrow(()-> new NotFoundException("No book found for productId: " + bookId));
+        repository.deleteInBatch(bookEntity);
     }
 
     @Override
