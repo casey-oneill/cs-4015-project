@@ -11,6 +11,7 @@ import com.cs4015.bookstore.api.exceptions.InvalidInputException;
 import com.cs4015.bookstore.api.exceptions.NotFoundException;
 import com.cs4015.bookstore.bookservice.core.book.mapper.BookApiToEntityMapper;
 import com.cs4015.bookstore.bookservice.core.book.mapper.BookEntityToApiMapper;
+import com.cs4015.bookstore.bookservice.core.book.mapper.BookMapper;
 import com.cs4015.bookstore.bookservice.core.book.model.BookEntity;
 import com.cs4015.bookstore.bookservice.core.book.repository.BookRepository;
 import com.cs4015.bookstore.util.ServiceUtil;
@@ -34,16 +35,16 @@ public class BookServiceImpl implements BookService {
 
     private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
     private final BookRepository repository;
-    private final BookEntityToApiMapper bookEntityToApiMapper;
-    private final BookApiToEntityMapper bookApiToEntityMapper;
+//    private final BookEntityToApiMapper bookEntityToApiMapper;
+//    private final BookApiToEntityMapper bookApiToEntityMapper;
+    private final BookMapper bookMapper;
 
     private final ServiceUtil serviceUtil;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, BookEntityToApiMapper bookEntityToApiMapper, BookApiToEntityMapper bookApiToEntityMapper, ServiceUtil serviceUtil){
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper, ServiceUtil serviceUtil){
         this.repository = bookRepository;
-        this.bookEntityToApiMapper = bookEntityToApiMapper;
-        this.bookApiToEntityMapper = bookApiToEntityMapper;
+        this.bookMapper = bookMapper;
         this.serviceUtil = serviceUtil;
     }
     @Override
@@ -54,7 +55,7 @@ public class BookServiceImpl implements BookService {
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
         BookEntity bookEntity = repository.findById(bookId).orElseThrow(() -> new NotFoundException("No Book found for productId: " + bookId));
-        Book book = bookEntityToApiMapper.bookEntityToApi(bookEntity);
+        Book book = bookMapper.entityToApi(bookEntity).orElseThrow(() -> new InvalidInputException("Cannot convert the Book Entity to API"));
         logger.debug("getBook: found bookId: " + book.getBookId());
         return book;
     }
@@ -66,11 +67,11 @@ public class BookServiceImpl implements BookService {
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
         BookEntity bookEntity = repository.findById(bookId).orElseThrow(()-> new NotFoundException("No book found for productId: " + bookId));
-        BookEntity updateBook = bookApiToEntityMapper.bookApiToEntity(book);
+        BookEntity updateBook = bookMapper.apiToEntity(book).get();
         updateBook.setId(bookId);
         try{
             updateBook = repository.save(updateBook);
-            return bookEntityToApiMapper.bookEntityToApi(updateBook);
+            return bookMapper.entityToApi(updateBook).get();
 
         }catch(Exception ex){
             logger.error("Error to update a book {} ", book);
@@ -82,11 +83,11 @@ public class BookServiceImpl implements BookService {
     public Book addBook(Book book) {
         logger.debug("POST: /books, add a new Book {}", book);
         try{
-            BookEntity bookEntity = bookApiToEntityMapper.bookApiToEntity(book);
+            BookEntity bookEntity = bookMapper.apiToEntity(book).get();
             logger.debug("addBook: bookEntity  to be saved into db {}", bookEntity);
             BookEntity newEntity = repository.save(bookEntity);
             logger.debug("addBook: Book entity created for bookId: ", book.getBookId());
-            return bookEntityToApiMapper.bookEntityToApi(newEntity);
+            return bookMapper.entityToApi(newEntity).get();
         }catch (DuplicateKeyException dke){
             throw new InvalidInputException("Duplicate key, Book Id: " + book.getBookId());
         }
@@ -112,7 +113,7 @@ public class BookServiceImpl implements BookService {
             Pageable pageable = PageRequest.of(page - 1, offset, Sort.Direction.ASC, "id");
             Page<BookEntity> books = repository.findAll(pageable);
             List<BookEntity> bookEntities = books.getContent();
-            List<Book> rtnBooks = bookEntities.stream().map(entity -> bookEntityToApiMapper.bookEntityToApi(entity)).collect(Collectors.toCollection(ArrayList<Book>::new));
+            List<Book> rtnBooks = bookEntities.stream().map(entity -> bookMapper.entityToApi(entity).get()).collect(Collectors.toCollection(ArrayList<Book>::new));
             return rtnBooks;
         }catch(Exception ex){
             logger.error("An error to get AllBooks {}", ex);
