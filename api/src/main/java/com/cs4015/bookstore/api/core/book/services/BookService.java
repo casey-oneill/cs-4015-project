@@ -44,7 +44,7 @@ public interface BookService {
             consumes = "application/json",
             produces = "application/json"
     )
-    Book replaceBook(@RequestBody Book book, @PathVariable long bookId);
+    Book updateBook(@RequestBody Book book, @PathVariable long bookId);
 
     /**
      * Add a new Book.
@@ -75,7 +75,7 @@ public interface BookService {
             value = "/books",
             produces = "application/json"
     )
-    List<Book> getAllBooks(@RequestParam("page") int page, @RequestParam("offset") int offset);
+    List<Book> getAllBooks(@RequestParam(value="page", required = false, defaultValue = "0") int page, @RequestParam(value ="offset", required = false, defaultValue = "10") int offset);
 }
 
 
