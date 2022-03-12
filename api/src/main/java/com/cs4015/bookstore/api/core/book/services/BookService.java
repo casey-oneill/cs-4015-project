@@ -44,7 +44,7 @@ public interface BookService {
             consumes = "application/json",
             produces = "application/json"
     )
-    Book replaceBook(@RequestBody Book book, @PathVariable long bookId);
+    Book updateBook(@RequestBody Book book, @PathVariable long bookId);
 
     /**
      * Add a new Book.

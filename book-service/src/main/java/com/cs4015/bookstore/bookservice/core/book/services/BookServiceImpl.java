@@ -6,6 +6,7 @@ import com.cs4015.bookstore.api.core.book.models.BookType;
 import com.cs4015.bookstore.api.core.book.models.Condition;
 import com.cs4015.bookstore.api.core.book.models.PaperBackBook;
 import com.cs4015.bookstore.api.core.book.services.BookService;
+import com.cs4015.bookstore.api.exceptions.BadRequestException;
 import com.cs4015.bookstore.api.exceptions.InvalidInputException;
 import com.cs4015.bookstore.api.exceptions.NotFoundException;
 import com.cs4015.bookstore.bookservice.core.book.mapper.BookApiToEntityMapper;
@@ -17,10 +18,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookServiceImpl implements BookService {
@@ -46,9 +53,6 @@ public class BookServiceImpl implements BookService {
         if(bookId < 1){
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
-//        List<String> authors = new ArrayList<>();
-//        authors.add("AAA BBB");
-//        return new PaperBackBook(bookId, BookType.PAPERBACK,"ABC", authors, 99.99, "https://abc/abc.jpg", Condition.LIKENEW);
         BookEntity bookEntity = repository.findById(bookId).orElseThrow(() -> new NotFoundException("No Book found for productId: " + bookId));
         Book book = bookEntityToApiMapper.bookEntityToApi(bookEntity);
         logger.debug("getBook: found bookId: " + book.getBookId());
@@ -57,15 +61,21 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book updateBook(Book book, long bookId){
-        logger.debug("POST: /books, update a book {}", book);
+        logger.debug("PUT: /books, update a book {}", book);
         if(bookId < 1){
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
         BookEntity bookEntity = repository.findById(bookId).orElseThrow(()-> new NotFoundException("No book found for productId: " + bookId));
-        repository.deleteInBatch(bookEntity);
-        BookEntity upBookEntity = reponsitory = bookApiToEntityMapper.bookApiToEntity(book);
-        bookEntity newEntity = repository.save(upBookEntity);
-        return bookEntityToApiMapper.bookEntityToApi(newEntity);
+        BookEntity updateBook = bookApiToEntityMapper.bookApiToEntity(book);
+        updateBook.setId(bookId);
+        try{
+            updateBook = repository.save(updateBook);
+            return bookEntityToApiMapper.bookEntityToApi(updateBook);
+
+        }catch(Exception ex){
+            logger.error("Error to update a book {} ", book);
+            throw ex;
+        }
     }
 
     @Override
@@ -84,16 +94,29 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(long bookId){
-        logger.debug("POST: /books, delete a book {}", book);
+        logger.debug("POST: /books, delete a book {}", bookId);
         if(bookId < 1){
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
         BookEntity bookEntity = repository.findById(bookId).orElseThrow(()-> new NotFoundException("No book found for productId: " + bookId));
-        repository.deleteInBatch(bookEntity);
+        repository.delete(bookEntity);
     }
 
     @Override
     public List<Book> getAllBooks(int page, int offset) {
-        return null;
+        if (page <= 0)
+            page = 1;
+        if (offset <= 0)
+            offset = 10;
+        try {
+            Pageable pageable = PageRequest.of(page - 1, offset, Sort.Direction.ASC, "id");
+            Page<BookEntity> books = repository.findAll(pageable);
+            List<BookEntity> bookEntities = books.getContent();
+            List<Book> rtnBooks = bookEntities.stream().map(entity -> bookEntityToApiMapper.bookEntityToApi(entity)).collect(Collectors.toCollection(ArrayList<Book>::new));
+            return rtnBooks;
+        }catch(Exception ex){
+            logger.error("An error to get AllBooks {}", ex);
+            throw ex;
+        }
     }
 }

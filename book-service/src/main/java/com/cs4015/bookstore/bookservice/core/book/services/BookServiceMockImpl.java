@@ -37,7 +37,7 @@ public class BookServiceMockImpl implements BookService {
     }
 
     @Override
-    public Book replaceBook(Book book, long bookId) {
+    public Book updateBook(Book book, long bookId) {
         return book;
     }
 
