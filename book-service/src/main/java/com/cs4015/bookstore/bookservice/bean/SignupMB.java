@@ -2,9 +2,12 @@ package com.cs4015.bookstore.bookservice.bean;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
-import com.cs4015.bookstore.api.core.book.models.User;
 import com.cs4015.bookstore.api.core.book.services.BookService;
+import com.cs4015.bookstore.bookservice.core.user.model.User;
+import com.cs4015.bookstore.bookservice.core.user.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,14 +20,10 @@ import lombok.Data;
 @Data
 public class SignupMB {
 	
-	private BookService bookService;
+	@Autowired
+	private UserService bookService;
 
 	private User user;
-
-	@Autowired
-	public SignupMB(@Qualifier("mockService") BookService bookService) {
-		this.bookService = bookService;
-	}
 
 	@PostConstruct
 	public void init() {
@@ -32,6 +31,9 @@ public class SignupMB {
 	}
 
 	public void createUser() {
-		// TODO: Connect to CreateUser API method
+		User saveUser = bookService.saveUser(user);
+		if (saveUser.getUserId() > 0) {
+			FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage("User created successfully."));
+		}
 	}
 }
