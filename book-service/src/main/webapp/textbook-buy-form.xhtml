@@ -62,15 +62,15 @@
                                     <p:row>
                                         <b>Book Format</b>
                                         <p>
-                                            #{book.bookType.name()}
+                                            #{book.bookType}
                                             <i>
                                                 (
                                                 <ui:fragment rendered="#{book.bookType != enumValuesProvider.digitalBookType()}">
-                                                    #{book.condition.name()}
+                                                    #{book.condition}
                                                 </ui:fragment>
 
                                                 <ui:fragment rendered="#{book.bookType == enumValuesProvider.digitalBookType()}">
-                                                    #{book.digitalFormat.name()}
+                                                    #{book.digitalFormat}
                                                 </ui:fragment>
                                                 )
                                             </i>
