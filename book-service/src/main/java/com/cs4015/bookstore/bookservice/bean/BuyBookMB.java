@@ -28,7 +28,7 @@ public class BuyBookMB {
 	private String author;
 	private Double minPrice;
 	private Double maxPrice;
-	private String bookType;
+	private BookType bookType;
 
 	@Autowired
 	public BuyBookMB(@Qualifier("mockService") BookService bookService) {
@@ -80,7 +80,7 @@ public class BuyBookMB {
 				isMatch = false;
 			}
 
-			if (bookType != null && book.getBookType() != bookType) {
+			if (bookType != null && !book.getBookType().equals(bookType.name())) {
 				isMatch = false;
 			}
 
