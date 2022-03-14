@@ -52,6 +52,12 @@ public interface BookMapper {
                 bookEntity = pEntity;
                 break;
         }
+        if(api.getBookId() != null) {
+            bookEntity.setId(api.getBookId());
+        }
+        if(api.getUserId() != null) {
+            bookEntity.setUserId(api.getUserId());
+        }
         bookEntity.setTitle(api.getTitle());
         bookEntity.setAuthors(api.getAuthors().stream().collect(Collectors.joining(",")));
         bookEntity.setDescription(api.getDescription());
@@ -87,11 +93,10 @@ public interface BookMapper {
                 book = new PaperBackBook(entity.getId(), entity.getType().toString(), entity.getTitle(),
                         new ArrayList<String>(Arrays.asList(entity.getAuthors().split(","))),
                         entity.getDescription(), entity.getPrice(), entity.getPhotoUrls(), paperBackBookEntity.getBookCondition());
-                book.setBookId(entity.getId());
-                book.setDescription(entity.getDescription());
                 break;
 
         }
+        book.setUserId(entity.getUserId());
         return Optional.of(book);
     };
 

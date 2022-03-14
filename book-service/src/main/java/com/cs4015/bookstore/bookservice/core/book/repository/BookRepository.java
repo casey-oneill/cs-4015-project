@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -14,4 +15,6 @@ import java.util.Optional;
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     Optional<BookEntity> findById(long id);
+
+    Optional<List<BookEntity>> findByUserId(long userId);
 }

@@ -14,4 +14,6 @@ public interface BookManager {
 
     Optional<List<Book>> getAllBookWithPagination(int page, int offset);
 
+    Optional<List<Book>> getBooksByUserId(long userId);
+
 }

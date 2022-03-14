@@ -46,6 +46,7 @@ public interface BookApiToEntityMapper {
                 bookEntity = pEntity;
                 break;
         }
+        bookEntity.setUserId(api.getUserId());
         bookEntity.setTitle(api.getTitle());
         bookEntity.setAuthors(api.getAuthors().stream().collect(Collectors.joining(",")));
         bookEntity.setDescription(api.getDescription());
