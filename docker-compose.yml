@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.2'
 
 services:
   book:
@@ -11,24 +11,15 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-
-#  mongodb:
-#    image: mongo:4.4.2
-#    mem_limit: 512m
-#    ports:
-#      - "27017:27017"
-#    command: mongod
-#    healthcheck:
-#      test: "mongo --eval 'db.stats().ok'"
-#      interval: 5s
-#      timeout: 2s
-#      retries: 60
-
+    networks:
+      - docker_bookstore
   mysql:
     image: mysql:5.7.32
     mem_limit: 512m
     ports:
       - "3306:3306"
+    networks:
+      - docker_bookstore
     environment:
       - MYSQL_ROOT_PASSWORD=rootpwd
       - MYSQL_DATABASE=bookstore_db
@@ -39,3 +30,7 @@ services:
       interval: 5s
       timeout: 2s
       retries: 60
+
+networks:
+  docker_bookstore:
+    driver: bridge
