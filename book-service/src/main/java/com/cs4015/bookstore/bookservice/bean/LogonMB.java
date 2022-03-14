@@ -1,12 +1,15 @@
 package com.cs4015.bookstore.bookservice.bean;
 
 import java.io.IOException;
-import com.cs4015.bookstore.api.core.book.models.User;
-import com.cs4015.bookstore.api.core.book.services.BookService;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+import com.cs4015.bookstore.bookservice.core.user.model.User;
+import com.cs4015.bookstore.bookservice.core.user.services.UserService;
 
 import org.omnifaces.util.Faces;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -17,33 +20,25 @@ import lombok.Data;
 @Data
 public class LogonMB {
 
-    private BookService bookService;
+    @Autowired
+    private UserService userService;
 
     private String username;
     private String password;
-    
     private User user;
 
-    @Autowired
-	public LogonMB(@Qualifier("mockService") BookService bookService) {
-		this.bookService = bookService;
-	}
-
     public User getUser() {
-        // TODO: Connect to User API
-        return new User(
-            "johndoe123",
-            "John Doe",
-            "abc123",
-            "johnd@email.com",
-            "15065555555"
-        );
+        return user;
     }
 
     public void login() {
         try {
-            // TODO: Connect to User API
-            Faces.redirect("index.jsf");
+            user = userService.validateUserCredentials(username, password);
+            if (user != null) {
+                Faces.redirect("index.jsf");
+            } else {
+                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username or password.", ""));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

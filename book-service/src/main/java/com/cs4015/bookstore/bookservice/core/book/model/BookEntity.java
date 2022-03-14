@@ -1,6 +1,7 @@
 package com.cs4015.bookstore.bookservice.core.book.model;
 
 import com.cs4015.bookstore.api.core.book.models.BookType;
+import com.cs4015.bookstore.bookservice.core.user.model.User;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
