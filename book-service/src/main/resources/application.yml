@@ -27,7 +27,6 @@ api:
     unprocessableEntity.description: Unprocessable entity, input parameters caused the processing to fail. See response message for more information
 
   book-service:
-
     get-book:
       description: Returns a composite view of the specified product id
       notes: |
@@ -52,7 +51,6 @@ api:
 
 server.port: 7001
 server.error.include-message: always
-
 
 
 # Strongly recommend to set 'ddl-auto' property to "none" in a production environment!
@@ -86,3 +84,5 @@ server.port: 8080
 
 spring.datasource:
   url: jdbc:mysql://mysql/bookstore_db
+  username: user
+  password: pwd

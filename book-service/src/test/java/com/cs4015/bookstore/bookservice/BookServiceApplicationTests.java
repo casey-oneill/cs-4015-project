@@ -14,10 +14,10 @@ class BookServiceApplicationTests {
     @Autowired
     private WebTestClient client;
 
-    @Test
     void getBookById() {
 
         int bookId = 1;
+
 
 //        client.get()
 //                .uri("/books/" + bookId)
