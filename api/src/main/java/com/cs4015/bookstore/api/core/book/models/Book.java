@@ -18,6 +18,7 @@ import java.util.List;
 @Data
 public abstract class Book {
     private Long bookId;
+    private Long userId;
     private String bookType;
     private String title;
     private List<String> authors;
@@ -43,6 +44,14 @@ public abstract class Book {
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getBookType() {
@@ -97,6 +106,7 @@ public abstract class Book {
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
+                ", userId=" + userId +
                 ", bookType='" + bookType + '\'' +
                 ", title='" + title + '\'' +
                 ", authors=" + authors +

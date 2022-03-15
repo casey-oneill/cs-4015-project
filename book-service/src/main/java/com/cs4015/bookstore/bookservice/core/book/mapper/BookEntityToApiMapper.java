@@ -35,20 +35,21 @@ public interface BookEntityToApiMapper {
                 book = new DigitalBook(entity.getId(), entity.getType().toString(), entity.getTitle(),
                         new ArrayList<String>(Arrays.asList(entity.getAuthors().split(","))),
                         entity.getDescription(), entity.getPrice(), entity.getPhotoUrls(), dBookEntity.getDigitalFormat(), dBookEntity.getDigitalUrl());
+                book.setUserId(entity.getUserId());
                 break;
             case HARDCOVER:
                 HardCoverBookEntity hardCoverBookEntity = (HardCoverBookEntity) entity;
                 book = new HardCoverBook(entity.getId(), entity.getType().toString(), entity.getTitle(),
                         new ArrayList<String>(Arrays.asList(entity.getAuthors().split(","))),
                         entity.getDescription(), entity.getPrice(), entity.getPhotoUrls(), hardCoverBookEntity.getBookCondition());
+                book.setUserId(entity.getUserId());
                 break;
             case PAPERBACK:
                 PaperBackBookEntity paperBackBookEntity = (PaperBackBookEntity) entity;
                 book = new PaperBackBook(entity.getId(), entity.getType().toString(), entity.getTitle(),
                         new ArrayList<String>(Arrays.asList(entity.getAuthors().split(","))),
                         entity.getDescription(), entity.getPrice(), entity.getPhotoUrls(), paperBackBookEntity.getBookCondition());
-                book.setBookId(entity.getId());
-                book.setDescription(entity.getDescription());
+                book.setUserId(entity.getUserId());
                 break;
 
         }

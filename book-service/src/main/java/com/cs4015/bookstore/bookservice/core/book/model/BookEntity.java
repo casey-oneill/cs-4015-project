@@ -19,6 +19,7 @@ public abstract class BookEntity {
     @GeneratedValue
     private long id;
     //private BookType bookType;
+    private long userId;
     private String title;
     private String authors;
     private String description;
@@ -36,12 +37,30 @@ public abstract class BookEntity {
         this.photoUrls = photoUrls;
     }
 
+    public BookEntity(long id, long userId, String title, String authors, String description, double price, String photoUrls) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.authors = authors;
+        this.description = description;
+        this.price = price;
+        this.photoUrls = photoUrls;
+    }
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -90,6 +109,7 @@ public abstract class BookEntity {
     public String toString() {
         return "BookEntity{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", authors='" + authors + '\'' +
                 ", description='" + description + '\'' +

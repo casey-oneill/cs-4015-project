@@ -87,4 +87,17 @@ public class BookManagerImpl implements BookManager {
         }
 
     }
+
+    @Override
+    public Optional<List<Book>> getBooksByUserId(long userId) {
+        logger.debug("Get users " + userId + "books.");
+        try {
+            List<BookEntity> bookEntities = repository.findByUserId(userId).get();
+            List<Book> rtnBooks = bookEntities.stream().map(entity -> bookMapper.entityToApi(entity).get()).collect(Collectors.toCollection(ArrayList<Book>::new));
+            return Optional.of(rtnBooks);
+        }catch(Exception ex){
+            logger.error("An error to get AllBooks {}", ex);
+            throw ex;
+        }
+    }
 }
