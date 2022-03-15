@@ -77,5 +77,3 @@ public interface BookService {
     )
     List<Book> getAllBooks(@RequestParam(value="page", required = false, defaultValue = "0") int page, @RequestParam(value ="offset", required = false, defaultValue = "10") int offset);
 }
-
-

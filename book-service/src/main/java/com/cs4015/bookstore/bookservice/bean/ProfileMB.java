@@ -29,9 +29,11 @@ public class ProfileMB {
 
 	@PostConstruct
 	public void init() {
-		UserBooks userBooks = userBookManager.getUsersBooks(logonMB.getUser().getUserId());
-		if (userBooks != null) {
-			books = userBooks.getBooks();
+		if (logonMB.getUser() != null) {
+			UserBooks userBooks = userBookManager.getUsersBooks(logonMB.getUser().getUserId());
+			if (userBooks != null) {
+				books = userBooks.getBooks();
+			}
 		}
 	}
 }

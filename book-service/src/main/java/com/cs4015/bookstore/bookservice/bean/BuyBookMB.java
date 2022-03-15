@@ -8,21 +8,32 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
 import com.cs4015.bookstore.api.core.book.models.BookType;
 import com.cs4015.bookstore.api.core.book.services.BookService;
+import com.cs4015.bookstore.bookservice.core.book.manager.BookManager;
+import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
+import com.cs4015.bookstore.bookservice.core.user.model.User;
+import com.cs4015.bookstore.bookservice.core.user.services.UserService;
+import com.cs4015.bookstore.bookservice.model.BookListing;
+import com.cs4015.bookstore.bookservice.model.BookListingAdapter;
 
 @Component("buyBookMB")
 @Data
 public class BuyBookMB {
 	
-	private BookService bookService;
+	@Autowired
+	private BookManager bookManager;
 
-	private List<Book> allBooks;
-	private List<Book> filteredBooks;
+	@Autowired
+	private UserService userService;
+
+	private List<BookListing> allBooks;
+	private List<BookListing> filteredBooks;
 
 	private String title;
 	private String author;
@@ -30,14 +41,19 @@ public class BuyBookMB {
 	private Double maxPrice;
 	private BookType bookType;
 
-	@Autowired
-	public BuyBookMB(@Qualifier("mockService") BookService bookService) {
-		this.bookService = bookService;
-	}
-
 	@PostConstruct
 	public void init() {
-		allBooks = bookService.getAllBooks(0, 0);
+		allBooks = new ArrayList<>();
+
+		Optional<List<Book>> bookResults = bookManager.getAllBookWithPagination(1, 0);
+		if (bookResults.isPresent()) {
+			for (Book book : bookResults.get()) {
+				Optional<User> userResult = userService.getUser(book.getUserId());
+				if (userResult.isPresent()) {
+					allBooks.add(new BookListingAdapter(book, userResult.get()));
+				}
+			}
+		}
 
 		filteredBooks = new ArrayList<>();
 		allBooks.forEach((b) -> {
@@ -55,7 +71,7 @@ public class BuyBookMB {
 	public void filter() {
 		filteredBooks = new ArrayList<>();
 
-		for (Book book : allBooks) {
+		for (BookListing book : allBooks) {
 			boolean isMatch = true;
 
 			if (title != null && !title.isBlank() && !book.getTitle().toLowerCase().contains(title.toLowerCase())) {
