@@ -1,24 +1,20 @@
 package com.cs4015.bookstore.bookservice.core.book.model;
 
 import com.cs4015.bookstore.api.core.book.models.BookType;
-import com.cs4015.bookstore.bookservice.core.user.model.User;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="book_type", discriminatorType = DiscriminatorType.STRING)
-@Table(name= "books")
+@Table(name="books")
 public abstract class BookEntity {
     @javax.persistence.Id
     @GeneratedValue
     private long id;
-    //private BookType bookType;
     private long userId;
     private String title;
     private String authors;
@@ -27,7 +23,7 @@ public abstract class BookEntity {
     @Column(name="photo_urls")
     private String photoUrls;
 
-    public BookEntity(){}
+    public BookEntity() {}
 
     public BookEntity(String title, String authors, String description, double price, String photoUrls) {
         this.title = title;
@@ -118,4 +114,3 @@ public abstract class BookEntity {
                 '}';
     }
 }
-
