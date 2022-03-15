@@ -2,7 +2,6 @@ package com.cs4015.bookstore.api.core.book.models;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import jdk.jfr.DataAmount;
 
 import lombok.Data;
 
@@ -17,6 +16,7 @@ import java.util.List;
 })
 @Data
 public abstract class Book {
+    
     private Long bookId;
     private Long userId;
     private String bookType;
@@ -26,7 +26,7 @@ public abstract class Book {
     private double price;
     private String photoUrls;
 
-    public Book(){};
+    public Book() {};
 
     public Book(Long bookId, String bookType, String title, List<String> authors, String description, double price, String photoUrls) {
         this.bookId = bookId;
@@ -35,70 +35,6 @@ public abstract class Book {
         this.authors = authors;
         this.description = description;
         this.price = price;
-        this.photoUrls = photoUrls;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getBookType() {
-        return bookType;
-    }
-
-    public void setBookType(String bookType) {
-        this.bookType = bookType;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<String> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getPhotoUrls() {
-        return photoUrls;
-    }
-
-    public void setPhotoUrls(String photoUrls) {
         this.photoUrls = photoUrls;
     }
 

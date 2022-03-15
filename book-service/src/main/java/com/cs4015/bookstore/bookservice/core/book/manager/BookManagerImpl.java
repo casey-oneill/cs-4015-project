@@ -31,7 +31,7 @@ public class BookManagerImpl implements BookManager {
     private final ServiceUtil serviceUtil;
 
     @Autowired
-    public BookManagerImpl(BookRepository bookRepository, BookMapper bookMapper, ServiceUtil serviceUtil){
+    public BookManagerImpl(BookRepository bookRepository, BookMapper bookMapper, ServiceUtil serviceUtil) {
         this.repository = bookRepository;
         this.bookMapper = bookMapper;
         this.serviceUtil = serviceUtil;
@@ -48,11 +48,10 @@ public class BookManagerImpl implements BookManager {
     @Override
     public Optional<Book> saveBook(Book book) {
         BookEntity updateBook = bookMapper.apiToEntity(book).get();
-        try{
+        try {
             updateBook = repository.save(updateBook);
             return bookMapper.entityToApi(updateBook);
-
-        }catch(Exception ex){
+        } catch(Exception ex) {
             logger.error("Error to update a book {} ", book);
             throw ex;
         }
@@ -61,12 +60,11 @@ public class BookManagerImpl implements BookManager {
     @Override
     public void deleteBook(long bookId) {
         logger.debug("Delete a book {}", bookId);
-        if(bookId < 1){
+        if (bookId < 1) {
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
         BookEntity bookEntity = repository.findById(bookId).orElseThrow(()-> new NotFoundException("No book found for productId: " + bookId));
         repository.delete(bookEntity);
-
     }
 
     @Override

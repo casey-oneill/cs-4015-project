@@ -6,8 +6,8 @@ import com.cs4015.bookstore.api.core.book.models.DigitalFormat;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue(value= BookType.Values.DIGITAL)
-@DiscriminatorColumn(name = "book_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(value=BookType.Values.DIGITAL)
+@DiscriminatorColumn(name="book_type", discriminatorType=DiscriminatorType.STRING)
 public class DigitalBookEntity extends BookEntity {
     @Enumerated(EnumType.STRING)
     private DigitalFormat digitalFormat;

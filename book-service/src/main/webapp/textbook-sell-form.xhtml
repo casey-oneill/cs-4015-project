@@ -25,7 +25,14 @@
                         <p:outputLabel for="@next" value="Title"/>
                     </div>
                     <div class="p-col-12">
-                        <p:inputText id="title" value="#{sellBookMB.title}"/>
+                        <p:inputText id="title" value="#{sellBookMB.title}" style="width: 50%;"/>
+                    </div>
+
+                    <div class="p-col-12">
+                        <p:outputLabel for="@next" value="Description"/>
+                    </div>
+                    <div class="p-col-12">
+                        <p:inputTextarea id="description" value="#{sellBookMB.description}" style="width: 50%;"/>
                     </div>
 
                     <div class="p-col-12">
@@ -57,7 +64,14 @@
                         <p:outputLabel for="@next" value="Price"/>
                     </div>
                     <div class="p-col-12">
-                        <p:inputNumber id="price" value="#{sellBookMB.price}" symbol="$" symbolPosition="p" decimalSeparator="." thousandSeparator="," />
+                        <p:inputNumber id="price" value="#{sellBookMB.price}" symbol="$" symbolPosition="p" decimalSeparator="." thousandSeparator=","/>
+                    </div>
+
+                    <div class="p-col-12">
+                        <p:outputLabel for="@next" value="Photo URL"/>
+                    </div>
+                    <div class="p-col-12">
+                        <p:inputText id="photoUrl" value="#{sellBookMB.photoUrl}" style="width: 50%;"/>
                     </div>
     
                     <div class="p-col-12">

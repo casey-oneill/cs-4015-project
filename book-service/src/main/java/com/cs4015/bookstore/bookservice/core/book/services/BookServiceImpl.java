@@ -48,11 +48,12 @@ public class BookServiceImpl implements BookService {
         this.serviceUtil = serviceUtil;
         this.bookManger = bookManger;
     }
+    
     @Override
     public Book getBook(long bookId) {
         logger.info("/books return a book.");
 
-        if(bookId < 1){
+        if (bookId < 1) {
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
         Book book = bookManger.getBookById(bookId).orElseThrow(() -> new NotFoundException("No Book found for bookId: " + bookId));
@@ -61,12 +62,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBook(Book book, long bookId){
+    public Book updateBook(Book book, long bookId) {
         logger.debug("PUT: /books, update a book {}", book);
-        if(bookId < 1){
+        if (bookId < 1) {
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
-        if(bookManger.getBookById(bookId).isEmpty()){
+        if (bookManger.getBookById(bookId).isEmpty()) {
             throw new NotFoundException("No Book found for bookId: " + bookId);
         }
         book.setBookId(bookId);
@@ -85,7 +86,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(long bookId){
         logger.debug("POST: /books, delete a book {}", bookId);
-        if(bookId < 1){
+        if(bookId < 1) {
             throw new InvalidInputException("Invalid bookId: " + bookId);
         }
         BookEntity bookEntity = repository.findById(bookId).orElseThrow(()-> new NotFoundException("No book found for productId: " + bookId));

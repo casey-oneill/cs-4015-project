@@ -2,7 +2,7 @@ package com.cs4015.bookstore.api.core.book.models;
 
 import java.util.List;
 
-public class DigitalBook extends Book{
+public class DigitalBook extends Book {
 
     private DigitalFormat digitalFormat;
     private String url;

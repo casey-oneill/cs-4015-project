@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookManager {
+    
     Optional<Book> getBookById(long bookId);
 
     Optional<Book> saveBook(Book book);
@@ -15,5 +16,4 @@ public interface BookManager {
     Optional<List<Book>> getAllBookWithPagination(int page, int offset);
 
     Optional<List<Book>> getBooksByUserId(long userId);
-
 }
