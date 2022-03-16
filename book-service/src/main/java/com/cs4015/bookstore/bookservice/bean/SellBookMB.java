@@ -23,8 +23,10 @@ import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Component("sellBookMB")
+@SessionScope
 @Data
 public class SellBookMB {
 	
@@ -51,34 +53,52 @@ public class SellBookMB {
 	@PostConstruct
 	public void init() {
 		// Reset form values
+		bookType = BookType.HARDCOVER;
 		title = "";
 		authors = new ArrayList<>();
 		selectedAuthor = "";
+		description = "";
 		price = 0;
-		bookType = BookType.HARDCOVER;
+		photoUrl = "";
+		condition = Condition.LIKENEW;
+		digitalFormat = DigitalFormat.PDF;
 	}
 
 	public void save() {
-		Book book;
-		switch (bookType) {
-			case DIGITAL:
-				book = new DigitalBook(null, BookType.DIGITAL.name(), title, authors, description, price, photoUrl, digitalFormat, "");
-				break;
-			case HARDCOVER:
-				book = new HardCoverBook(null, BookType.HARDCOVER.name(), title, authors, description, price, photoUrl, condition);
-				break;
-			default:
-				// PAPERBACK
-				book = new PaperBackBook(null, BookType.HARDCOVER.name(), title, authors, description, price, photoUrl, condition);
-				break;
+		// Validate fields
+		boolean isValid = true;
+		if (price < 0) {
+			FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Price cannot be less than $0.", ""));
+			isValid = false;
 		}
-		
-		try {
-			Optional<Book> result = bookManager.saveBook(book);
-			UserBooks userBook = userBookManager.addBookToUser(logonMB.getUser().getUserId(), result.get());
-			FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage("Posting created successfully."));
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to create listing.", e.getMessage()));
+
+		if (authors.size() <= 0) {
+			FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "At least one author is required.", ""));
+			isValid = false;
+		}
+
+		if (isValid) {
+			Book book;
+			switch (bookType) {
+				case DIGITAL:
+					book = new DigitalBook(null, BookType.DIGITAL.name(), title, authors, description, price, photoUrl, digitalFormat, "");
+					break;
+				case HARDCOVER:
+					book = new HardCoverBook(null, BookType.HARDCOVER.name(), title, authors, description, price, photoUrl, condition);
+					break;
+				default:
+					// PAPERBACK
+					book = new PaperBackBook(null, BookType.HARDCOVER.name(), title, authors, description, price, photoUrl, condition);
+					break;
+			}
+			
+			try {
+				Optional<Book> result = bookManager.saveBook(book);
+				UserBooks userBook = userBookManager.addBookToUser(logonMB.getUser().getUserId(), result.get());
+				FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage("Posting created successfully."));
+			} catch (Exception e) {
+				FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to create listing.", e.getMessage()));
+			}
 		}
 	}
 

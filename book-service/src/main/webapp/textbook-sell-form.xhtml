@@ -18,6 +18,10 @@
     
     <ui:define name="body">        
         <h:form>
+            <p:growl closable="true">
+                <p:autoUpdate/>
+            </p:growl>
+            
 			<p:panel header="Textbook Information">
                 <div class="p-grid">
 
@@ -25,14 +29,14 @@
                         <p:outputLabel for="@next" value="Title"/>
                     </div>
                     <div class="p-col-12">
-                        <p:inputText id="title" value="#{sellBookMB.title}" style="width: 50%;"/>
+                        <p:inputText id="title" value="#{sellBookMB.title}" required="true" requiredMessage="Title is required." style="width: 50%;"/>
                     </div>
 
                     <div class="p-col-12">
                         <p:outputLabel for="@next" value="Description"/>
                     </div>
                     <div class="p-col-12">
-                        <p:inputTextarea id="description" value="#{sellBookMB.description}" style="width: 50%;"/>
+                        <p:inputTextarea id="description" value="#{sellBookMB.description}" required="true" requiredMessage="Description is required." style="width: 50%;"/>
                     </div>
 
                     <div class="p-col-12">
@@ -64,7 +68,7 @@
                         <p:outputLabel for="@next" value="Price"/>
                     </div>
                     <div class="p-col-12">
-                        <p:inputNumber id="price" value="#{sellBookMB.price}" symbol="$" symbolPosition="p" decimalSeparator="." thousandSeparator=","/>
+                        <p:inputNumber id="price" value="#{sellBookMB.price}" symbol="$" symbolPosition="p" decimalSeparator="." thousandSeparator="," required="true" requiredMessage="Price is required."/>
                     </div>
 
                     <div class="p-col-12">
@@ -76,7 +80,7 @@
     
                     <div class="p-col-12">
                         <p:outputLabel for="@next" value="Type"/>
-                        <p:selectOneListbox id="type" value="#{sellBookMB.bookType}">
+                        <p:selectOneListbox id="type" value="#{sellBookMB.bookType}" required="true" requiredMessage="Type is required.">
                             <p:ajax update="@parent"/>
                             <f:selectItems value="#{enumValuesProvider.bookTypes()}" var="bookType" itemValue="#{bookType}" itemLabel="#{bookType.name()}"/>
                         </p:selectOneListbox>
@@ -85,7 +89,7 @@
                     <c:if test="#{sellBookMB.bookType != enumValuesProvider.digitalBookType()}">
                         <div class="p-col-12">
                             <p:outputLabel for="@next" value="Condition"/>
-                            <p:selectOneListbox id="condition" value="#{sellBookMB.condition}">
+                            <p:selectOneListbox id="condition" value="#{sellBookMB.condition}" required="true" requiredMessage="Condition is required.">
                                 <f:selectItems value="#{enumValuesProvider.conditions()}" var="condition" itemValue="#{condition}" itemLabel="#{condition.name()}"/>
                             </p:selectOneListbox>
                         </div>
@@ -94,7 +98,7 @@
                     <c:if test="#{sellBookMB.bookType == enumValuesProvider.digitalBookType()}">
                         <div class="p-col-12">
                             <p:outputLabel for="@next" value="Digital Format"/>
-                            <p:selectOneListbox id="digitalFormat" value="#{sellBookMB.digitalFormat}">
+                            <p:selectOneListbox id="digitalFormat" value="#{sellBookMB.digitalFormat}" required="true" requiredMessage="Digital format is required.">
                                 <f:selectItems value="#{enumValuesProvider.digitalFormats()}" var="digitalFormat" itemValue="#{digitalFormat}" itemLabel="#{digitalFormat.name()}"/>
                             </p:selectOneListbox>
                         </div>
