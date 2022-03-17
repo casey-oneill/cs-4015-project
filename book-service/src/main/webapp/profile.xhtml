@@ -15,10 +15,9 @@
         Your information is shared with other users
     </ui:define>
     
-    <ui:define name="body">        
+    <ui:define name="body">
 		<p:panel header="Profile Details" style="margin-bottom: 25px;">
 			<f:facet name="header">
-				<p:avatar label="#{logonMB.user.fullName.charAt(0)}" shape="circle" style="background-color:#2196F3; color:#fff;"/>
 				#{logonMB.user.fullName}
 			</f:facet>
 
@@ -32,61 +31,62 @@
 			<p>#{logonMB.user.phone}</p>
 		</p:panel>
 
-		<p:panel header="My Reviews" style="margin-bottom: 25px;">
-			
-		</p:panel>
-
-		<p:panel header="My Listings">
-			<div class="p-grid">
-				<p:autoUpdate />
-				<p:repeat value="#{profileMB.books}" var="book">
-					<div class="p-col-12">
-						<p:panel class="book-listing">
-							<f:facet name="header">
-								<div style="margin-bottom: 10px;">
-									<b>#{book.title}</b>
-								</div>
-								<div>
-									<h:outputText value="#{book.price}">
-										<f:convertNumber pattern="$#0.00" locale="en_US"/>
-									</h:outputText>
-								</div>
-							</f:facet>
-
-							<p:panelGrid columns="2" styleClass="ui-noborder">
-								<p:graphicImage url="#{book.photoUrls}" width="200" height="200" />
-								<p:row>
-									<b>Book Format</b>
-									<p>
-										#{book.bookType}
-										<i>
-											(
-											<ui:fragment rendered="#{book.bookType != enumValuesProvider.digitalBookType()}">
-												#{book.condition}
-											</ui:fragment>
-
-											<ui:fragment rendered="#{book.bookType == enumValuesProvider.digitalBookType()}">
-												#{book.digitalFormat}
-											</ui:fragment>
-											)
-										</i>
-									</p>
-									<p>
-										<b>Authors</b>
-										<ui:repeat value="#{book.authors}" var="author">
-											<br/>
-											#{author}
-										</ui:repeat>
-									</p>
-									<b>Details</b>
-									<p>#{book.description}</p>
-								</p:row>
-							</p:panelGrid>
-						</p:panel>
-					</div>
-				</p:repeat>
-			</div>
-		</p:panel>
+		<h:form>
+			<p:panel header="My Listings">
+				<p:autoUpdate/>
+				<div class="p-grid">
+					<p:repeat id="userBooks" value="#{profileMB.books}" var="book">
+						<div class="p-col-12">
+							<p:panel class="book-listing">
+								<f:facet name="header">
+									<div style="margin-bottom: 10px;">
+										<b>#{book.title}</b>
+									</div>
+									<div>
+										<h:outputText value="#{book.price}">
+											<f:convertNumber pattern="$#0.00" locale="en_US"/>
+										</h:outputText>
+									</div>
+								</f:facet>
+	
+								<p:panelGrid columns="2" styleClass="ui-noborder">
+									<p:graphicImage url="#{book.photoUrls}" width="200" height="200" />
+									<p:row>
+										<b>Book Format</b>
+										<p>
+											#{book.bookType}
+											<i>
+												(
+												<ui:fragment rendered="#{book.bookType != enumValuesProvider.digitalBookType()}">
+													#{book.condition}
+												</ui:fragment>
+	
+												<ui:fragment rendered="#{book.bookType == enumValuesProvider.digitalBookType()}">
+													#{book.digitalFormat}
+												</ui:fragment>
+												)
+											</i>
+										</p>
+										<p>
+											<b>Authors</b>
+											<ui:repeat value="#{book.authors}" var="author">
+												<br/>
+												#{author}
+											</ui:repeat>
+										</p>
+										<b>Details</b>
+										<p>#{book.description}</p>
+									</p:row>
+									<p:row>
+										<p:commandButton styleClass="btn btn-danger btn-block" icon="pi pi-trash" value="Delete" action="#{profileMB.deleteUserBook(book)}"/>
+									</p:row>
+								</p:panelGrid>
+							</p:panel>
+						</div>
+					</p:repeat>
+				</div>
+			</p:panel>
+		</h:form>
     </ui:define>
 
 </ui:composition>

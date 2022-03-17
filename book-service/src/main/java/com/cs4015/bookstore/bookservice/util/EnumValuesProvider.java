@@ -1,4 +1,4 @@
-package com.cs4015.bookstore.bookservice.bean;
+package com.cs4015.bookstore.bookservice.util;
 
 import com.cs4015.bookstore.api.core.book.models.BookType;
 import com.cs4015.bookstore.api.core.book.models.Condition;

@@ -57,7 +57,7 @@
                             </p:column>
         
                             <p:column>
-                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" action="#{sellBookMB.deleteSelectedAuthor}">
+                                <p:commandButton styleClass="btn btn-danger" icon="pi pi-trash" value="Delete" action="#{sellBookMB.deleteSelectedAuthor}">
                                     <f:setPropertyActionListener value="#{author}" target="#{sellBookMB.selectedAuthor}"/>
                                 </p:commandButton>
                             </p:column>

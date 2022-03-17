@@ -3,8 +3,8 @@ package com.cs4015.bookstore.bookservice.bean;
 import lombok.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +14,14 @@ import javax.annotation.PostConstruct;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
 import com.cs4015.bookstore.api.core.book.models.BookType;
-import com.cs4015.bookstore.api.core.book.services.BookService;
 import com.cs4015.bookstore.bookservice.core.book.manager.BookManager;
-import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
 import com.cs4015.bookstore.bookservice.model.BookListing;
 import com.cs4015.bookstore.bookservice.model.BookListingAdapter;
 
 @Component("buyBookMB")
+@RequestScope
 @Data
 public class BuyBookMB {
 	

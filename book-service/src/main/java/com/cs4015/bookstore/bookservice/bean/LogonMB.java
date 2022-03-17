@@ -2,11 +2,9 @@ package com.cs4015.bookstore.bookservice.bean;
 
 import java.io.IOException;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
+import com.cs4015.bookstore.bookservice.util.MessageService;
 
 import org.omnifaces.util.Faces;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,9 @@ public class LogonMB {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     private String username;
     private String password;
     private User user;
@@ -37,7 +38,7 @@ public class LogonMB {
             if (user != null) {
                 Faces.redirect("index.jsf");
             } else {
-                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username or password.", ""));
+                messageService.showErrorMessage("Invalid username or password.");
             }
         } catch (IOException e) {
             e.printStackTrace();
