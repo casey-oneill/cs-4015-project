@@ -10,10 +10,14 @@ A web application for buying and selling used textbooks. Created for CS4015 / CS
     ```aidl
     docker-compose up 
     ```
-    - To store the service:
-    ```aidl
+    - To stop the service:
+    ``` 
     docker-compose down
     ```
+    - To update the book service in the image file:
+  ```aidl
+  docker-compose build book  
+  ```
 
 ### For Developing
 - Run the following command to intialize the MySQL container:

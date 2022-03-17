@@ -33,4 +33,3 @@ services:
 
 networks:
   docker_bookstore:
-    driver: bridge
