@@ -5,6 +5,7 @@ import javax.enterprise.context.RequestScoped;
 
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
+import com.cs4015.bookstore.bookservice.util.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

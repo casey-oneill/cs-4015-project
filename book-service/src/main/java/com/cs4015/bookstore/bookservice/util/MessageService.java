@@ -1,4 +1,4 @@
-package com.cs4015.bookstore.bookservice.bean;
+package com.cs4015.bookstore.bookservice.util;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;

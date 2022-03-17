@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
+import com.cs4015.bookstore.bookservice.util.MessageService;
 
 import org.omnifaces.util.Faces;
 import org.springframework.beans.factory.annotation.Autowired;
