@@ -86,10 +86,11 @@ public class SellBookMB {
 				case HARDCOVER:
 					book = new HardCoverBook(null, BookType.HARDCOVER.name(), title, authors, description, price, photoUrl, condition);
 					break;
-				default:
-					// PAPERBACK
-					book = new PaperBackBook(null, BookType.HARDCOVER.name(), title, authors, description, price, photoUrl, condition);
+				case PAPERBACK:
+					book = new PaperBackBook(null, BookType.PAPERBACK.name(), title, authors, description, price, photoUrl, condition);
 					break;
+				default:
+					return; // If book does not match expected type, don't create
 			}
 			
 			try {
