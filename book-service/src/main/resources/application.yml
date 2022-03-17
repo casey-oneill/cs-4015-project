@@ -84,5 +84,4 @@ server.port: 8080
 
 spring.datasource:
   url: jdbc:mysql://mysql/bookstore_db
-  username: user
-  password: pwd
+
