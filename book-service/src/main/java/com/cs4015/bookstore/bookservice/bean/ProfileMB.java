@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
 import com.cs4015.bookstore.api.core.book.models.UserBooks;
+import com.cs4015.bookstore.bookservice.core.book.manager.BookManager;
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,15 @@ import lombok.Data;
 @RequestScope
 @Data
 public class ProfileMB {
+
+	@Autowired
+	private BookManager bookManager;
 	
 	@Autowired
 	private UserBookManager userBookManager;
+
+	@Autowired
+	private MessageService messageService;
 
 	@Autowired
 	private LogonMB logonMB; // FIXME: Use Spring security
@@ -29,10 +36,28 @@ public class ProfileMB {
 
 	@PostConstruct
 	public void init() {
+		loadUserBooks();
+	}
+
+	public void deleteUserBook(Book book) {
+		try {
+			bookManager.deleteBook(book.getBookId());
+			messageService.showInfoMessage("Listing deleted successfully.", null);
+			loadUserBooks();
+		} catch (Exception e) {
+			messageService.showErrorMessage("Failed to delete listing.", e.getMessage());
+		}
+	}
+
+	public void loadUserBooks() {
 		if (logonMB.getUser() != null) {
-			UserBooks userBooks = userBookManager.getUsersBooks(logonMB.getUser().getUserId());
-			if (userBooks != null) {
-				books = userBooks.getBooks();
+			try {
+				UserBooks userBooks = userBookManager.getUsersBooks(logonMB.getUser().getUserId());
+				if (userBooks != null) {
+					books = userBooks.getBooks();
+				}
+			} catch (Exception e) {
+				messageService.showErrorMessage("Failed to fetch user listings.", e.getMessage());
 			}
 		}
 	}
