@@ -42,7 +42,7 @@ public class ProfileMB {
 	public void deleteUserBook(Book book) {
 		try {
 			bookManager.deleteBook(book.getBookId());
-			messageService.showInfoMessage("Listing deleted successfully.", null);
+			messageService.showInfoMessage("Listing deleted successfully.");
 			loadUserBooks();
 		} catch (Exception e) {
 			messageService.showErrorMessage("Failed to delete listing.", e.getMessage());

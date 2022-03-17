@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import lombok.Data;
 
@@ -17,7 +15,6 @@ import com.cs4015.bookstore.api.core.book.models.DigitalBook;
 import com.cs4015.bookstore.api.core.book.models.DigitalFormat;
 import com.cs4015.bookstore.api.core.book.models.HardCoverBook;
 import com.cs4015.bookstore.api.core.book.models.PaperBackBook;
-import com.cs4015.bookstore.api.core.book.models.UserBooks;
 import com.cs4015.bookstore.bookservice.core.book.manager.BookManagerImpl;
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
 
@@ -35,6 +32,9 @@ public class SellBookMB {
 
 	@Autowired
 	private UserBookManager userBookManager;
+
+	@Autowired
+	private MessageService messageService;
 
 	@Autowired
 	private LogonMB logonMB; // FIXME: Use Spring security
@@ -68,12 +68,12 @@ public class SellBookMB {
 		// Validate fields
 		boolean isValid = true;
 		if (price < 0) {
-			FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Price cannot be less than $0.", ""));
+			messageService.showErrorMessage("Price cannot be less than $0.");
 			isValid = false;
 		}
 
 		if (authors.size() <= 0) {
-			FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "At least one author is required.", ""));
+			messageService.showErrorMessage("At least one author is required.");
 			isValid = false;
 		}
 
@@ -95,10 +95,10 @@ public class SellBookMB {
 			
 			try {
 				Optional<Book> result = bookManager.saveBook(book);
-				UserBooks userBook = userBookManager.addBookToUser(logonMB.getUser().getUserId(), result.get());
-				FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage("Posting created successfully."));
+				userBookManager.addBookToUser(logonMB.getUser().getUserId(), result.get());
+				messageService.showInfoMessage("Posting created successfully.");
 			} catch (Exception e) {
-				FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to create listing.", e.getMessage()));
+				messageService.showErrorMessage("Failed to create listing", e.getMessage());
 			}
 		}
 	}
