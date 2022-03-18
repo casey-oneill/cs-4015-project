@@ -31,7 +31,7 @@ public class ProfileMB {
 	private MessageService messageService;
 
 	@Autowired
-	private LogonMB logonMB; // FIXME: Use Spring security
+	private LoginMB loginMB; // FIXME: Use Spring security
 
 	private List<Book> books;
 
@@ -51,9 +51,9 @@ public class ProfileMB {
 	}
 
 	public void loadUserBooks() {
-		if (logonMB.getUser() != null) {
+		if (loginMB.getUser() != null) {
 			try {
-				UserBooks userBooks = userBookManager.getUsersBooks(logonMB.getUser().getUserId());
+				UserBooks userBooks = userBookManager.getUsersBooks(loginMB.getUser().getUserId());
 				if (userBooks != null) {
 					books = userBooks.getBooks();
 				}

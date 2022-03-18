@@ -1,7 +1,5 @@
 package com.cs4015.bookstore.bookservice.bean;
 
-import java.io.IOException;
-
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
 import com.cs4015.bookstore.bookservice.util.MessageService;
@@ -13,10 +11,10 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import lombok.Data;
 
-@Component("logonMB")
+@Component("loginMB")
 @SessionScope
 @Data
-public class LogonMB {
+public class LoginMB {
 
     @Autowired
     private UserService userService;
@@ -36,20 +34,20 @@ public class LogonMB {
         try {
             user = userService.validateUserCredentials(username, password);
             if (user != null) {
-                Faces.redirect("index.jsf");
+                Faces.redirect("index.xhtml");
             } else {
                 messageService.showErrorMessage("Invalid username or password.");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void logout() {
         try {
-            Faces.redirect("logon.jsf");
+            Faces.redirect("login.xhtml");
             this.user = null;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

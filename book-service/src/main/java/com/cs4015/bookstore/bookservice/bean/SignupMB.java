@@ -1,7 +1,6 @@
 package com.cs4015.bookstore.bookservice.bean;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
@@ -10,11 +9,12 @@ import com.cs4015.bookstore.bookservice.util.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import lombok.Data;
 
 @Component("signupMB")
-@RequestScoped
+@RequestScope
 @Data
 public class SignupMB {
 	

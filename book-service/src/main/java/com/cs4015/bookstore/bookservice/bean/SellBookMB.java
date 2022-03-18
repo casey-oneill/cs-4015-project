@@ -38,7 +38,7 @@ public class SellBookMB {
 	private MessageService messageService;
 
 	@Autowired
-	private LogonMB logonMB; // FIXME: Use Spring security
+	private LoginMB loginMB; // FIXME: Use Spring security
 
 	private BookType bookType;
 	private String title;
@@ -96,7 +96,7 @@ public class SellBookMB {
 			
 			try {
 				Optional<Book> result = bookManager.saveBook(book);
-				userBookManager.addBookToUser(logonMB.getUser().getUserId(), result.get());
+				userBookManager.addBookToUser(loginMB.getUser().getUserId(), result.get());
 				messageService.showInfoMessage("Posting created successfully.");
 			} catch (Exception e) {
 				messageService.showErrorMessage("Failed to create listing", e.getMessage());

@@ -11,13 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.cs4015.bookstore")
-public class BookServiceApplication {
+public class BookServiceApplication extends SpringBootServletInitializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(BookServiceApplication.class);
 
@@ -56,7 +58,6 @@ public class BookServiceApplication {
                         .description(apiExternalDocDesc)
                         .url(apiExternalDocUrl));
     }
-
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(BookServiceApplication.class, args);

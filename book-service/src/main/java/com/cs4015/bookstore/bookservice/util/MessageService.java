@@ -4,13 +4,17 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MessageService {
+
+	@Autowired
+	FacesContext facesContext;
 	
 	private void showMessage(Severity severity, String message, String details) {
-		FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, message, details));
+		facesContext.addMessage("messages", new FacesMessage(severity, message, details));
 	}
 
 	public void showInfoMessage(String message, String details) {
