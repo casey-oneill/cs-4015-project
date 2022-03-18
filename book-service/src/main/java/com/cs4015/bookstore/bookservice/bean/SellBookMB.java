@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
+import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManagerImpl;
 import lombok.Data;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
@@ -95,8 +96,8 @@ public class SellBookMB {
 			}
 			
 			try {
-				Optional<Book> result = bookManager.saveBook(book);
-				userBookManager.addBookToUser(loginMB.getUser().getUserId(), result.get());
+				//Optional<Book> result = bookManager.saveBook(book);
+				userBookManager.addBookToUser(loginMB.getUser().getUserId(), book);
 				messageService.showInfoMessage("Posting created successfully.");
 			} catch (Exception e) {
 				messageService.showErrorMessage("Failed to create listing", e.getMessage());

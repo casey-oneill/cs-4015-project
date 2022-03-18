@@ -18,6 +18,7 @@ public abstract class BookEntity {
     private long userId;
     private String title;
     private String authors;
+    @Lob
     private String description;
     private double price;
     @Column(name="photo_urls")
