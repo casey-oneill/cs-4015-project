@@ -17,7 +17,7 @@
     <ul class="nav navbar-nav">
         <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <p:avatar label="#{logonMB.user.fullName.charAt(0)}" shape="circle" style="background-color:#ecf0f5; color:#333; margin-right: 5px;"/>
+                <p:avatar label="#{loginMB.user.fullName.charAt(0)}" shape="circle" style="background-color:#ecf0f5; color:#333; margin-right: 5px;"/>
                 <i class="fa fa-angle-down"/>
             </a>
 
@@ -25,7 +25,7 @@
                 <h:form>
                     <p:menu style="float: right;">
                         <p:menuitem value="Profile" outcome="/profile" icon="pi pi-user"/>
-                        <p:menuitem value="Log Out" action="#{logonMB.logout()}" icon="pi pi-external-link"/>
+                        <p:menuitem value="Log Out" action="#{loginMB.logout()}" icon="pi pi-external-link"/>
                     </p:menu>
                 </h:form>
             </ul>

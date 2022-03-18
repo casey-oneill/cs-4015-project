@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.repository.UserRepository;
-import com.google.protobuf.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

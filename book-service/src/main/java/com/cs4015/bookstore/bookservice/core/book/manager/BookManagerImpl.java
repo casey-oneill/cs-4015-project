@@ -6,7 +6,6 @@ import com.cs4015.bookstore.api.exceptions.NotFoundException;
 import com.cs4015.bookstore.bookservice.core.book.mapper.BookMapper;
 import com.cs4015.bookstore.bookservice.core.book.model.BookEntity;
 import com.cs4015.bookstore.bookservice.core.book.repository.BookRepository;
-import com.cs4015.bookstore.bookservice.core.book.services.BookServiceImpl;
 import com.cs4015.bookstore.util.ServiceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

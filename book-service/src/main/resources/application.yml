@@ -52,7 +52,6 @@ api:
 server.port: 7001
 server.error.include-message: always
 
-
 # Strongly recommend to set 'ddl-auto' property to "none" in a production environment!
 spring:
   jpa:
@@ -76,12 +75,13 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-
 ---
+
 spring.config.activate.on-profile: docker
 
 server.port: 8080
 
 spring.datasource:
   url: jdbc:mysql://mysql/bookstore_db
-
+  username: user
+  password: pwd
