@@ -35,6 +35,8 @@ public class LogonMB {
         try {
             user = userService.validateUserCredentials(username, password);
             if (user != null) {
+                userService.saveUser(user);
+                User.setInstance(user);
                 Faces.redirect("index.jsf");
             } else {
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username or password.", ""));
@@ -47,6 +49,7 @@ public class LogonMB {
     public void logout() {
         try {
             Faces.redirect("logon.jsf");
+            User.destroyInstance();
             this.user = null;
         } catch (IOException e) {
             e.printStackTrace();
