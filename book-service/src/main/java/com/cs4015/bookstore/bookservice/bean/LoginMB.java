@@ -34,7 +34,9 @@ public class LoginMB {
         try {
             user = userService.validateUserCredentials(username, password);
             if (user != null) {
-                Faces.redirect("index.xhtml");
+                userService.saveUser(user);
+                User.setInstance(user);
+                Faces.redirect("index.jsf");
             } else {
                 messageService.showErrorMessage("Invalid username or password.");
             }
@@ -45,8 +47,8 @@ public class LoginMB {
 
     public void logout() {
         try {
-            Faces.redirect("login.xhtml");
-            this.user = null;
+            User.destroyInstance();
+            Faces.redirect("logon.jsf");
         } catch (Exception e) {
             e.printStackTrace();
         }

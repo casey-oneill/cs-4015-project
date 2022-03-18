@@ -28,7 +28,8 @@ public class SignupMB {
 
 	@PostConstruct
 	public void init() {
-		user = new User();
+		User.setInstance(user);
+		user = User.getInstance();
 	}
 
 	public void createUser() {
