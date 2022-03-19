@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Table(name="users")
 @Data
 @NoArgsConstructor
-public class User {
-	
+public class UserEntity {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long userId;
@@ -27,7 +27,7 @@ public class User {
 	private String email;
 	private String phone;
 
-	public User(String username, String fullName, String password, String email, String phone) {
+	public UserEntity(String username, String fullName, String password, String email, String phone) {
 		this.username = username;
 		this.fullName = fullName;
 		this.password = password;
@@ -37,7 +37,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User {" +
+		return "UserEntity {" +
                 "id=" + userId +
 				", password=" + password +
                 ", username='" + username + '\'' +
