@@ -52,14 +52,11 @@ public class LoginMB {
 
     public void logout() {
         try {
-            User.destroyInstance();
+            this.user = null;
+            CurrentUsers.removeCurrentUser(user);
             Faces.redirect("logon.jsf");
         } catch (Exception e) {
-            Faces.redirect("logon.jsf");
-            CurrentUsers.removeCurrentUser(user);
-            this.user = null;
-        } catch (IOException e) {
-            e.printStackTrace();
+            messageService.showErrorMessage("Failed to logout.");
         }
     }
 }
