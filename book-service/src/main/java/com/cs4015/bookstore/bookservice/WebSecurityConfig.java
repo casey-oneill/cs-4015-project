@@ -23,23 +23,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		.authorizeRequests()
-			.antMatchers("/", "/login.xhtml", "/javax.faces.resource/**").permitAll()
-			.anyRequest().authenticated()
-			.and()
-		.formLogin()
-			.loginPage("/login.xhtml")
-			.defaultSuccessUrl("/index.xhtml")
-			.successForwardUrl("/index.xhtml")
-			.failureUrl("/login.xhtml?error=true")
-			.permitAll()
-			.and()
-		.logout()
-			.logoutSuccessUrl("/login.xhtml")
-			.permitAll()
-			.and()
-		.csrf()
-			.disable(); // JSF 2.2 already protects against CSRF attacks
+			.authorizeRequests()
+				.antMatchers("/signup.xhtml").permitAll()
+				.and()
+			.authorizeRequests()
+				.antMatchers("/", "/login.xhtml", "/javax.faces.resource/**").permitAll()
+				.anyRequest().authenticated()
+				.and()
+			.formLogin()
+				.loginPage("/login.xhtml")
+				.defaultSuccessUrl("/index.xhtml")
+				.successForwardUrl("/index.xhtml")
+				.failureUrl("/login.xhtml?error=true")
+				.permitAll()
+				.and()
+			.logout()
+				.logoutSuccessUrl("/login.xhtml")
+				.permitAll()
+				.and()
+			.csrf()
+				.disable(); // JSF 2.2 already protects against CSRF attacks
 
 		// Allows using resource links (ex. PDF)
 		http.headers().frameOptions().sameOrigin();

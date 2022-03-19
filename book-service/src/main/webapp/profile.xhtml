@@ -18,17 +18,17 @@
     <ui:define name="body">
 		<p:panel header="Profile Details" style="margin-bottom: 25px;">
 			<f:facet name="header">
-				#{loginMB.user.fullName}
+				#{currentUser.currentUser.fullName}
 			</f:facet>
 
 			<b>Username</b>
-			<p>#{loginMB.user.username}</p>
+			<p>#{currentUser.currentUser.username}</p>
 
 			<b>Email</b>
-			<p>#{loginMB.user.email}</p>
+			<p>#{currentUser.currentUser.email}</p>
 
 			<b>Phone Number</b>
-			<p>#{loginMB.user.phone}</p>
+			<p>#{currentUser.currentUser.phone}</p>
 		</p:panel>
 
 		<h:form>
