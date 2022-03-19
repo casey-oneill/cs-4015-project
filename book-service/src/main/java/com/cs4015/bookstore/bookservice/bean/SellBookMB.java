@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManagerImpl;
+import com.cs4015.bookstore.bookservice.core.user.model.User;
 import lombok.Data;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
@@ -18,6 +19,7 @@ import com.cs4015.bookstore.api.core.book.models.HardCoverBook;
 import com.cs4015.bookstore.api.core.book.models.PaperBackBook;
 import com.cs4015.bookstore.bookservice.core.book.manager.BookManagerImpl;
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
+import com.cs4015.bookstore.bookservice.util.CurrentUserProvider;
 import com.cs4015.bookstore.bookservice.util.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,9 @@ public class SellBookMB {
 	private MessageService messageService;
 
 	@Autowired
-	private LoginMB loginMB; // FIXME: Use Spring security
+	private CurrentUserProvider currentUserProvider;
 
+	private User currentUser;
 	private BookType bookType;
 	private String title;
 	private List<String> authors;
@@ -54,6 +57,8 @@ public class SellBookMB {
 
 	@PostConstruct
 	public void init() {
+		currentUser = currentUserProvider.getCurrentUser();
+
 		// Reset form values
 		bookType = BookType.HARDCOVER;
 		title = "";
@@ -97,7 +102,7 @@ public class SellBookMB {
 			
 			try {
 				//Optional<Book> result = bookManager.saveBook(book);
-				userBookManager.addBookToUser(loginMB.getUser().getUserId(), book);
+				userBookManager.addBookToUser(currentUser.getUserId(), book);
 				messageService.showInfoMessage("Posting created successfully.");
 			} catch (Exception e) {
 				messageService.showErrorMessage("Failed to create listing", e.getMessage());

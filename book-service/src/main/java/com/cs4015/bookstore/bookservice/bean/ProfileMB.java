@@ -8,6 +8,8 @@ import com.cs4015.bookstore.api.core.book.models.Book;
 import com.cs4015.bookstore.api.core.book.models.UserBooks;
 import com.cs4015.bookstore.bookservice.core.book.manager.BookManager;
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
+import com.cs4015.bookstore.bookservice.core.user.model.User;
+import com.cs4015.bookstore.bookservice.util.CurrentUserProvider;
 import com.cs4015.bookstore.bookservice.util.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +30,17 @@ public class ProfileMB {
 	private UserBookManager userBookManager;
 
 	@Autowired
-	private MessageService messageService;
+	private CurrentUserProvider currentUserProvider;
 
 	@Autowired
-	private LoginMB loginMB; // FIXME: Use Spring security
+	private MessageService messageService;
 
+	private User currentUser;
 	private List<Book> books;
 
 	@PostConstruct
 	public void init() {
+		currentUser = currentUserProvider.getCurrentUser();
 		loadUserBooks();
 	}
 
@@ -51,9 +55,9 @@ public class ProfileMB {
 	}
 
 	public void loadUserBooks() {
-		if (loginMB.getUser() != null) {
+		if (currentUser != null) {
 			try {
-				UserBooks userBooks = userBookManager.getUsersBooks(loginMB.getUser().getUserId());
+				UserBooks userBooks = userBookManager.getUsersBooks(currentUser.getUserId());
 				if (userBooks != null) {
 					books = userBooks.getBooks();
 				}
