@@ -1,7 +1,7 @@
 springdoc:
   swagger-ui.path: /openapi/swagger-ui.html
   api-docs.path: /openapi/v3/api-docs
-  packagesToScan: se.magnus.microservices.composite.product
+  packagesToScan: com.cs4015.bookstore
   pathsToMatch: /**
 
 api:
@@ -13,12 +13,12 @@ api:
     license: MY LICENSE
     licenseUrl: MY LICENSE URL
 
-    externalDocDesc: MY WIKI PAGE
-    externalDocUrl: MY WIKI URL
+    externalDocDesc: The book-services is part of cs-4015 project.
+    externalDocUrl: casey.oneill@unb.ca
     contact:
-      name: NAME OF CONTACT
-      url: URL TO CONTACT
-      email: contact@mail.com
+      name: Bin Liao, Casey O'Neill, Logan Fitzpatrick, Patrick Moilins, Qihao Guo
+      url: https://github.com/casey-oneill/cs-4015-project/issues
+      email: https://github.com/casey-oneill/cs-4015-project
 
   responseCodes:
     ok.description: OK
@@ -28,26 +28,81 @@ api:
 
   book-service:
     get-book:
-      description: Returns a composite view of the specified product id
+      description: Returns a book json view of the specified book id
       notes: |
         # Normal response
-        If the requested product id is found the method will return information regarding:
-        1. Base product information
-        1. Reviews
-        1. Recommendations
-        1. Service Addresses\n(technical information regarding the addresses of the microservices that created the response)
+        If the requested book id is found the method will return information regarding:
+        1. HARDCOVER book information
+        1. PAPERBACK book information
+        1. DIGITAL book inforamtion
         # Expected partial and error responses
         In the following cases, only a partial response be created (used to simplify testing of error conditions)
-        ## Product id 113
-        200 - Ok, but no recommendations will be returned
-        ## Product id 213
-        200 - Ok, but no reviews will be returned
-        ## Non numerical product id
+        ## Book id 2
+        200 - Ok, with a HARCOVER book information.
+        ## Non numerical book id
         400 - A **Bad Request** error will be returned
-        ## Product id 13
+        ## Boook id 1
         404 - A **Not Found** error will be returned
-        ## Negative product ids
+        ## Negative book ids
         422 - An **Unprocessable Entity** error will be returned
+    update-book:
+      description: Update a book with its book id.
+      notes: |
+        # Normal response
+        If the requested book id is found the method update the book'information from the request body and return the updated book inforamtion:
+        1. Updated HARDCOVER book information
+        1. Updated PAPERBACK book information
+        1. Updated DIGITAL book inforamtion
+        # Expected partial and error responses
+        In the following cases, only a partial response be created (used to simplify testing of error conditions)
+        ## Book id 2 with a updated book information.
+        200 - Ok, with a updated book information.
+        ## Non numerical book id
+        400 - A **Bad Request** error will be returned
+        ## Boook id 1
+        404 - A **Not Found** error will be returned
+        ## Negative book ids
+        422 - An **Unprocessable Entity** error will be returned
+    add-book:
+      description: Add a book into the book store database.
+      notes: |
+        # Normal response
+        If the book is successful add into the database, return the book'information:
+        1. Updated HARDCOVER book information
+        1. Updated PAPERBACK book information
+        1. Updated DIGITAL book inforamtion
+        # Expected partial and error responses
+        In the following cases, only a partial response be created (used to simplify testing of error conditions)
+        ## Book with proper inforamtion.
+        200 - Ok, added book inforamtion.
+        ## Upsuppoted book format.
+        422 - An **Unprocessable Entity** error will be returned
+    delete-book:
+      description: Delete a book with its book id.
+      notes: |
+        # Normal response
+        If the requested book id is found, the method delete the book' from the database.
+        # Expected partial and error responses
+        In the following cases, only a partial response be created (used to simplify testing of error conditions)
+        ## Book id is exist in the book store.
+        200 - Ok.
+        ## Non numerical book id
+        400 - A **Bad Request** error will be returned
+        ## Boook id that is not exist in the database.
+        404 - A **Not Found** error will be returned
+    get-all-books:
+      description: Returns a list of books that exisitng in the database.
+      notes: |
+        # Normal response
+        A list of books found in the bookstore will be return. This request accept pagenation. User could requestion the page number and how many books  in one page.
+        # Expected partial and error responses
+        In the following cases, only a partial response be created (used to simplify testing of error conditions)
+        ## Successful to request all books.
+        200 - Ok.
+        ## Any book request errors.
+        422 - An **Unprocessable Entity** error will be returned
+
+
 
 server.port: 7001
 server.error.include-message: always

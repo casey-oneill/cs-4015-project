@@ -33,12 +33,22 @@ public interface BookService {
             produces = "application/json")
     Book getBook(@PathVariable long bookId);
 
+
     /**
      * Update a book with its bookId.
      * @param book A JSON representation of the Book to be updated.
      * @param bookId Id of the book.
      * @return the book, if updated, else null.
      */
+    @Operation(
+            summary = "${api.book-service.update-book.description}",
+            description = "${api.book-service.update-book.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
+            @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}"),
+            @ApiResponse(responseCode = "404", description = "${api.responseCodes.notFound.description}"),
+            @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
+    })
     @PutMapping(
             value = "/books/{bookId}",
             consumes = "application/json",
@@ -51,6 +61,15 @@ public interface BookService {
      * @param book A JSON representation of the new Book to be added.
      * @return the book, if added, else null.
      */
+    @Operation(
+            summary = "${api.book-service.add-book.description}",
+            description = "${api.book-service.add-book.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
+            @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}"),
+            @ApiResponse(responseCode = "404", description = "${api.responseCodes.notFound.description}"),
+            @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
+    })
     @PostMapping(
             value = "/books",
             consumes = "application/json",
@@ -62,6 +81,15 @@ public interface BookService {
      * Delete a book by the given bookId.
      * @param bookId id of the deleted book.
      */
+    @Operation(
+            summary = "${api.book-service.delete-book.description}",
+            description = "${api.book-service.delete-book.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
+            @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}"),
+            @ApiResponse(responseCode = "404", description = "${api.responseCodes.notFound.description}"),
+            @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
+    })
     @DeleteMapping("/books/{bookId}")
     void deleteBook(@PathVariable long bookId);
 
@@ -71,6 +99,15 @@ public interface BookService {
      * @param offset the number of the rows in one page
      * @return a list of Books.
      */
+    @Operation(
+            summary = "${api.book-service.get-all-books.description}",
+            description = "${api.book-service.get-all-books.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
+            @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}"),
+            @ApiResponse(responseCode = "404", description = "${api.responseCodes.notFound.description}"),
+            @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
+    })
     @GetMapping(
             value = "/books",
             produces = "application/json"

@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManagerImpl;
 import com.cs4015.bookstore.bookservice.core.user.model.User;
-
 import lombok.Data;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
