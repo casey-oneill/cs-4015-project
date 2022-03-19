@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import com.cs4015.bookstore.bookservice.core.user.controllers.CurrentUsers;
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
 
@@ -34,11 +35,15 @@ public class LogonMB {
     public void login() {
         try {
             user = userService.validateUserCredentials(username, password);
-            if (user != null) {
+            if (user != null && !CurrentUsers.searchCurrentUser(user)) {
                 userService.saveUser(user);
-                User.setInstance(user);
+                CurrentUsers.addCurrentUser(user);
                 Faces.redirect("index.jsf");
-            } else {
+            }
+            else if(CurrentUsers.searchCurrentUser(user)){
+                Faces.redirect("index.jsf");
+            }
+            else {
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username or password.", ""));
             }
         } catch (IOException e) {
@@ -49,7 +54,7 @@ public class LogonMB {
     public void logout() {
         try {
             Faces.redirect("logon.jsf");
-            User.destroyInstance();
+            CurrentUsers.removeCurrentUser(user);
             this.user = null;
         } catch (IOException e) {
             e.printStackTrace();
