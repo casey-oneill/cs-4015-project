@@ -1,5 +1,6 @@
 package com.cs4015.bookstore.bookservice.bean;
 
+import com.cs4015.bookstore.bookservice.core.user.controllers.CurrentUsers;
 import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.core.user.services.UserService;
 import com.cs4015.bookstore.bookservice.util.MessageService;
@@ -34,9 +35,13 @@ public class LoginMB {
         try {
             user = userService.validateUserCredentials(username, password);
             if (user != null) {
-                userService.saveUser(user);
-                User.setInstance(user);
-                Faces.redirect("index.jsf");
+                if (CurrentUsers.searchCurrentUser(user)) {
+                    logout();
+                    messageService.showErrorMessage("User is already logged in!");
+                } else {
+                    CurrentUsers.addCurrentUser(user);
+                    Faces.redirect("index.jsf");
+                }
             } else {
                 messageService.showErrorMessage("Invalid username or password.");
             }
@@ -50,6 +55,10 @@ public class LoginMB {
             User.destroyInstance();
             Faces.redirect("logon.jsf");
         } catch (Exception e) {
+            Faces.redirect("logon.jsf");
+            CurrentUsers.removeCurrentUser(user);
+            this.user = null;
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
