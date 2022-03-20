@@ -25,6 +25,9 @@ services:
       - MYSQL_DATABASE=bookstore_db
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pwd
+    volumes:
+      - ./data/mysql/scripts:/docker-entrypoint-initdb.d
+      - ./data/mysql/mysql_data:/var/lib/mysql
     healthcheck:
       test: "/usr/bin/mysql --user=user --password=pwd --execute \"SHOW DATABASES;\""
       interval: 5s
