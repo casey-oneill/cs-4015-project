@@ -19,7 +19,6 @@
     - [Problem](#problem-2)
     - [Solution](#solution-2)
     - [Implementation](#implementation-3)
-  - [Singleton Pattern](#singleton-pattern)
 - [Contributions](#contributions)
 
 # Explanation of Software
@@ -66,9 +65,12 @@ Here are four key design patterns that we have identified as essential to our ap
 
 ## Adapter Pattern
 ### Problem
-  - Books are created by users.
-  - On the UI, we want to display user information (ex. full name, email, etc.) alongside book information.
+ - On the UI, we want to display User information (ex. full name, email, etc.) alongside book information.
+ - The Book API entities used by the frontend beans contain only a user’s ID.
+ - The JSF framework (used to display information on the UI) requires that we associate Book and User information within the same class. It is not good style to do something like getUserFor(book) once the book has been passed along to the UI. 
 ### Solution
+ - We created an interface modeling the information expected by the UI (BookListing.java)
+ - We used to Adapter pattern to make the Book API entity compatible  with this interface (BookListingAdapter.java)
 ### Implementation
 ![Adapter Pattern UML](images/uml-adapter-pattern.png)
 
@@ -87,8 +89,6 @@ Here are four key design patterns that we have identified as essential to our ap
   - Use the factory pattern to define `APIFactory` and `EntityFactory` classes who, when given a `Book` or `BookEntity` object, will instantiate and return the appropriate subclass for that object.
 ### Implementation
 ![Factory Pattern Implementation](images/uml-factory-pattern.png)
-
-## Singleton Pattern
 
 # Contributions
 This project was made possible through the hard work and dedication of all 5 team members. Each team member provided a unique set of skills to the project, and not all contributions are reflected in the number of commits made to the codebase. Because not all team members were familiar with the Spring Boot Framework, a lot of their contribution was made either later in project’s development (once they had time to learn about Spring) or during the requirements/design phase of the project.
