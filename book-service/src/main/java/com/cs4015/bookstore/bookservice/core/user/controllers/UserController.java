@@ -114,7 +114,8 @@ public class UserController {
 		Optional<User> user = userService.getUser(user_id);
 		if (user.isPresent()) {
 			return userBookManager.addBookToUser(user_id, book);
+		}else{
+			throw new InvalidInputException("The user is not exist: userId = " + user_id);
 		}
-		return null;
 	}
 }

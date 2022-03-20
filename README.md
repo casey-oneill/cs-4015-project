@@ -3,7 +3,8 @@
 ## Description
 A web application for buying and selling used textbooks. Created for CS4015 / CS6075 / SWE4403 Course Project assignment.
 
-API documents, please go to http://localhost:8080/openapi/swagger-ui/index.html
+API documents, please go to: 
+http://localhost:8080/openapi/swagger-ui/index.html
 
 ## Project Setup
 ### Run the Project
