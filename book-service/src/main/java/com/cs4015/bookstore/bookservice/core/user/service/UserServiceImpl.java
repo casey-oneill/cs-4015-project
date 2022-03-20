@@ -2,7 +2,11 @@ package com.cs4015.bookstore.bookservice.core.user.service;
 
 import com.cs4015.bookstore.api.core.user.services.UserService;
 import com.cs4015.bookstore.api.exceptions.InvalidInputException;
+import com.cs4015.bookstore.bookservice.core.user.manager.UserManager;
+import com.cs4015.bookstore.bookservice.core.user.mapper.UserMapper;
 import com.cs4015.bookstore.bookservice.core.user.model.UserEntity;
+import com.cs4015.bookstore.bookservice.core.user.repository.UserRepository;
+import com.cs4015.bookstore.util.ServiceUtil;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
@@ -22,7 +26,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getUser(long userId){
         logger.info("/Users return a user.");
-
         if(userId < 1){
             throw new InvalidInputException("Invalid userId: " + userId);
         }

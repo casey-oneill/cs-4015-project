@@ -1,12 +1,7 @@
 package com.cs4015.bookstore.bookservice.core.user.mapper;
 
 import com.cs4015.bookstore.api.core.book.models.*;
-import com.cs4015.bookstore.bookservice.core.book.model.BookEntity;
-import com.cs4015.bookstore.bookservice.core.book.model.DigitalBookEntity;
-import com.cs4015.bookstore.bookservice.core.book.model.HardCoverBookEntity;
-import com.cs4015.bookstore.bookservice.core.book.model.PaperBackBookEntity;
 import com.cs4015.bookstore.bookservice.core.user.model.UserEntity;
-
 import org.apache.catalina.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
@@ -24,33 +19,34 @@ import java.util.stream.Collectors;
 public interface UserMapper {
    // BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
     @ObjectFactory
-    default Optional<UserEntity> apiToEntity(UserEntity api){
+    default Optional<UserEntity> apiToEntity(com.cs4015.bookstore.api.core.user.models.User user2){
         UserEntity bookEntity = null;
-        if(api == null){
+        if(user2 == null){
             return Optional.empty();
         }
+        User user = null;
 
-        if(api.getUserId() != null) {
-            UserEntity.setUserId(api.getUserId());
+        if(user2.getUserId() != null) {
+            UserEntity.setUserId(user2.getUserId());
         }
-        UserEntity.setUsername(api.getUsername());
-        UserEntity.setAuthors(api.getFullname().stream().collect(Collectors.joining(",")));
-        UserEntity.setDescription(api.getPassword());
-        UserEntity.setPrice(api.getEmail());
-        UserEntity.setPhotoUrls(api.getPhone());
+        UserEntity.setUsername(user2.getUsername());
+        UserEntity.setAuthors(user2.getFullname().stream().collect(Collectors.joining(",")));
+        UserEntity.setDescription(user2.getPassword());
+        UserEntity.setPrice(user2.getEmail());
+        UserEntity.setPhotoUrls(user2.getPhone());
 
-        return Optional.of(bookEntity);
+        return Optional.of(userEntity);
     };
 
     @ObjectFactory
-    default  Optional<Book> entityToApi(BookEntity entity){
-        if(entity == null){
+    default  Optional<User> entityToApi(UserEntity userEntity){
+        if(userEntity == null){
             return Optional.empty();
         }
         UserEntity user = null;
 
-        UserEntity.setUserId(entity.getUserId());
-        return Optional.of(book);
+        UserEntity.setUserId(userEntity.getUserId());
+        return Optional.of(user);
     };
 
 

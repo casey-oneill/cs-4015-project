@@ -25,7 +25,6 @@ public class BookServiceImpl implements BookService {
     private final BookRepository repository;
     private final MyBookMapper bookMapper;
     private final BookManager bookManger;
-
     private final ServiceUtil serviceUtil;
 
     @Autowired
