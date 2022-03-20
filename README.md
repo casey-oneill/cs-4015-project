@@ -11,11 +11,15 @@ http://localhost:8080/openapi/swagger-ui/index.html
 - The bookstore project is wrapped into the docker image.
     -  To start the project, simply run the following commands: 
     ```aidl
-    docker-compose up 
+    docker-compose up -d
+    ```
+    - To vew the log from docker:
+    ```
+    docker-compose logs -f
     ```
     - To stop the service:
     ``` 
-    docker-compose down
+    docker-compose stop
     ```
     - To update the book service in the image file:
   ```aidl
