@@ -16,6 +16,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+/data/mysql/mysql_data/
 
 ### IntelliJ IDEA ###
 .idea
