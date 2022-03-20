@@ -17,6 +17,9 @@
     - [Implementation](#implementation-2)
   - [Factory Pattern](#factory-pattern)
     - [Problem](#problem-2)
+    - [Solution](#solution-2)
+    - [Implementation](#implementation-3)
+  - [Singleton Pattern](#singleton-pattern)
 - [Contributions](#contributions)
 
 # Explanation of Software
@@ -72,10 +75,20 @@ Here are four key design patterns that we have identified as essential to our ap
 ## Factory Pattern
 ### Problem
   - In our application, there is more than one kind of book. We can have Hardcover, Paperback, and Digital books.
-  - We model this by implementing:
+  - We model in the API Layer this by implementing:
       - One abstract class, `Book`
       - Three sub-classes of `Book`: `HardCoverBook`, `PaperBackBook`, and `DigitalBook`
-  - 
+  - We model this in the Database Persistence Layer by implementing:
+      - One abstract class, `BookEntity`
+      - Three sub-classes of `BookEntity`: `HardCoverBookEntity`, `PaperBackBookEntity`, and `DigitalBookEntity`
+  - The `BookRepository` class returns objects of type `BookEntity`, but the API Layer expects objects of type `Book`. The Database Persistence Layer must convert all `BookEntity` objects to type `Book` before they can be received by API Layer, and vice-versa.
+   - But we will need to instantiate different sub-classes of the `Book` class depending on what sub-class of `BookEntity` we are converting, and vice-versa.
+### Solution
+  - Use the factory pattern to define `APIFactory` and `EntityFactory` classes who, when given a `Book` or `BookEntity` object, will instantiate and return the appropriate subclass for that object.
+### Implementation
+![Factory Pattern Implementation](images/uml-factory-pattern.png)
+
+## Singleton Pattern
 
 # Contributions
 This project was made possible through the hard work and dedication of all 5 team members. Each team member provided a unique set of skills to the project, and not all contributions are reflected in the number of commits made to the codebase. Because not all team members were familiar with the Spring Boot Framework, a lot of their contribution was made either later in project’s development (once they had time to learn about Spring) or during the requirements/design phase of the project.
