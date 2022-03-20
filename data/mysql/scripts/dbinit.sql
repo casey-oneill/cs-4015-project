@@ -1,5 +1,31 @@
-DELETE FROM books;
-DELETE FROM users;
+DROP TABLE books;
+DROP TABLE users;
+
+CREATE TABLE users(
+    user_id     BIGINT(20)      NOT NULL,
+    email       VARCHAR(255),
+    full_name   VARCHAR(255),
+    password    VARCHAR(255),
+    phone       VARCHAR(255),
+    username    VARCHAR(255),
+    PRIMARY KEY(user_id),
+    UNIQUE (username)
+);
+
+CREATE TABLE books(
+    book_type   VARCHAR(31)     NOT NULL,
+    id          BIGINT(20)      NOT NULL,
+    authors     VARCHAR(255),
+    description VARCHAR(255),
+    photo_urls  VARCHAR(255),
+    price       double          NOT NULL,
+    title       VARCHAR(255),
+    user_id     BIGINT(20)      NOT NULL,
+    digital_format  VARCHAR(255),
+    digital_url VARCHAR(255),
+    book_condition  VARCHAR(255),
+    PRIMARY KEY(id)
+);
 
 INSERT INTO users (user_id, email, full_name, password, phone, username) VALUES ('1','pmollins@unb.ca','Pat Mollins','123456','5062594065','pmollins');
 INSERT INTO users (user_id, email, full_name, password, phone, username) VALUES ('2','bin.liao@unb.ca','Bin Liao','123456','5064168899','bliao');
