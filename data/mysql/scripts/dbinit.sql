@@ -1,5 +1,5 @@
 CREATE TABLE users(
-    user_id     BIGINT(20)      NOT NULL,
+    user_id     BIGINT(20)      NOT NULL AUTO_INCREMENT,
     email       VARCHAR(255),
     full_name   VARCHAR(255),
     password    VARCHAR(255),
@@ -11,7 +11,7 @@ CREATE TABLE users(
 
 CREATE TABLE books(
     book_type   VARCHAR(31)     NOT NULL,
-    id          BIGINT(20)      NOT NULL,
+    id          BIGINT(20)      NOT NULL AUTO_INCREMENT,
     authors     VARCHAR(255),
     description VARCHAR(255),
     photo_urls  VARCHAR(255),
