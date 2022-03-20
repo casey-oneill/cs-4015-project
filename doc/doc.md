@@ -95,17 +95,29 @@ This project was made possible through the hard work and dedication of all 5 tea
 
 Here is what each group member contributed to the project:
 - Bin Lao
+  - Configured initial Spring Boot project
+  - Created REST endpoints
+  - Created documentation for REST endpoints using the OpenAPI Specification
+  - Configured Spring Boot JPA + MySQL implementation
+  - Configured database persistence for Book entities
+  - Created UML diagram describing factory pattern implementation
+  - Dockerized application
 - Logan Fitzpatrick
   - Refactored backend code for consistency:
     - Re-wrote database persistence implementation for User entities
     - Created User DTO classes in `api` project
 - Patrick Mollins
   - Created SQL script to generate data for testing the application
+  - Planned, recorded, and edited presentation video
 - Qihao Guo
   - Implemented mapping functionality for User API to database entity classes
+  - Implemented factory pattern for creating instances of the abstract classes `Book` and `BookEntity`
+  - Created UML diagram describing factory pattern implementation
 - Casey O'Neill
-  - Configured JSF framework integration
+  - Configured JSF framework integration (including Dockerization of components)
   - Configured Spring Security integration
   - Created user interface screens (implemented as `.xhtml` files)
   - Created management beans for each user interface screen (connecting frontend UI to backend persistence functionality)
   - Configured inital database persistence implementation for User entities
+  - Created UML diagram describing adapter pattern implementation
+  - Created project report
