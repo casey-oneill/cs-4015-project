@@ -1,6 +1,3 @@
-DROP TABLE books;
-DROP TABLE users;
-
 CREATE TABLE users(
     user_id     BIGINT(20)      NOT NULL,
     email       VARCHAR(255),
