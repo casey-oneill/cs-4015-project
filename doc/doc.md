@@ -102,7 +102,7 @@ Here is what each group member contributed to the project:
   - Created documentation for REST endpoints using the OpenAPI Specification
   - Configured Spring Boot JPA + MySQL implementation
   - Configured database persistence for Book entities
-  - Created UML diagram describing factory pattern implementation
+  - Created UML diagram describing facade pattern implementation
   - Dockerized application
 - Logan Fitzpatrick
   - Refactored backend code for consistency:
