@@ -13,7 +13,7 @@ http://localhost:8080/openapi/swagger-ui/index.html
     ./gradlew build     
     ```
 ### Run the Project
-- The bookstore project is wrapped into the docker image.
+- The bookstore project is wrapped and deploy into docker containers.
     -  To start the project, simply run the following commands: 
     ```aidl
     docker-compose up -d
