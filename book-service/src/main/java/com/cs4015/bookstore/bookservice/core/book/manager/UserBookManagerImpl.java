@@ -2,7 +2,7 @@ package com.cs4015.bookstore.bookservice.core.book.manager;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
 import com.cs4015.bookstore.api.core.book.models.UserBooks;
-import com.cs4015.bookstore.bookservice.core.book.mapper.BookMyBookMapperAdapter;
+import com.cs4015.bookstore.bookservice.core.book.mapper.MyBookMapper;
 import com.cs4015.bookstore.bookservice.core.book.mapper.UserBooksMapper;
 import com.cs4015.bookstore.bookservice.core.book.model.BookEntity;
 import com.cs4015.bookstore.bookservice.core.book.repository.BookRepository;
@@ -22,7 +22,7 @@ public class UserBookManagerImpl implements UserBookManager{
     @Autowired
     UserBooksMapper userBooksMapper;
     @Autowired
-    BookMyBookMapperAdapter bookMapperAdapter;
+    MyBookMapper bookMapper;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -36,7 +36,7 @@ public class UserBookManagerImpl implements UserBookManager{
     {
         Optional<User> userOptional = userService.getUser(userId);
         if(userOptional.isPresent()) {
-            BookEntity bookEntity = bookMapperAdapter.apiToEntity(book).get();
+            BookEntity bookEntity = bookMapper.apiToEntity(book).get();
             bookEntity.setUserId(userId);
             bookRepository.save(bookEntity);
             return getUsersBooks(userId);

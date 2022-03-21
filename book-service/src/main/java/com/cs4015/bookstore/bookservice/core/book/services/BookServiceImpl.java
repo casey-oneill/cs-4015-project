@@ -7,7 +7,7 @@ import com.cs4015.bookstore.api.exceptions.BadRequestException;
 import com.cs4015.bookstore.api.exceptions.InvalidInputException;
 import com.cs4015.bookstore.api.exceptions.NotFoundException;
 import com.cs4015.bookstore.bookservice.core.book.manager.BookManager;
-import com.cs4015.bookstore.bookservice.core.book.mapper.BookMapperAdapter;
+import com.cs4015.bookstore.bookservice.core.book.mapper.MyBookMapper;
 import com.cs4015.bookstore.bookservice.core.book.model.BookEntity;
 import com.cs4015.bookstore.bookservice.core.book.repository.BookRepository;
 import com.cs4015.bookstore.util.ServiceUtil;
@@ -23,15 +23,15 @@ public class BookServiceImpl implements BookService {
 
     private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
     private final BookRepository repository;
-    private final BookMapperAdapter bookMapperAdapter;
+    private final MyBookMapper bookMapper;
     private final BookManager bookManger;
 
     private final ServiceUtil serviceUtil;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, BookMapperAdapter bookMapperAdapter, BookManager bookManger, ServiceUtil serviceUtil){
+    public BookServiceImpl(BookRepository bookRepository, MyBookMapper bookMapper, BookManager bookManger, ServiceUtil serviceUtil){
         this.repository = bookRepository;
-        this.bookMapperAdapter = bookMapperAdapter;
+        this.bookMapper = bookMapper;
         this.serviceUtil = serviceUtil;
         this.bookManger = bookManger;
     }

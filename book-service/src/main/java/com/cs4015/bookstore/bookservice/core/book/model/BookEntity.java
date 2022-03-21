@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name="books")
 public abstract class BookEntity {
     @javax.persistence.Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private long userId;
     private String title;
