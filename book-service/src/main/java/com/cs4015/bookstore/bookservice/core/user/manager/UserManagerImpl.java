@@ -36,7 +36,7 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public Optional<User> getUserById(long userId) {
+    public Optional<User> getUserById(Long userId) {
         UserEntity userEntity = repository.findById(userId).orElseThrow(() -> new NotFoundException("No User found for productId: " + userId));
         User user = userMapper.entityToApi(userEntity).orElseThrow(() -> new InvalidInputException("Cannot convert the User Entity to API"));
         logger.debug("getUser from the database: found userId: " + user.getUserId());
@@ -65,6 +65,7 @@ public class UserManagerImpl implements UserManager {
         repository.delete(userEntity);
     }
 
+    /*
     @Override
     public Optional<List<User>> getAllUserWithPagination(int page, int offset) {
         if (page <= 0)
@@ -83,5 +84,6 @@ public class UserManagerImpl implements UserManager {
         }
 
     }
+    */
 
 }

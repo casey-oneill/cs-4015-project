@@ -11,6 +11,6 @@ public interface UserManager {
 
     void deleteUser(long userId);
 
-    Optional<List<User>> getAllUserWithPagination(int page, int offset);
+    //Optional<List<User>> getAllUserWithPagination(int page, int offset);
 
 }
