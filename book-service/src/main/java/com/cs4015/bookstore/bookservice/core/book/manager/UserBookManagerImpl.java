@@ -8,7 +8,6 @@ import com.cs4015.bookstore.bookservice.core.book.model.BookEntity;
 import com.cs4015.bookstore.bookservice.core.book.repository.BookRepository;
 import com.cs4015.bookstore.api.core.user.models.User;
 import com.cs4015.bookstore.bookservice.core.user.manager.UserManager;
-import com.cs4015.bookstore.bookservice.core.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

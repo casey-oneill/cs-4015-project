@@ -2,11 +2,9 @@ package com.cs4015.bookstore.bookservice.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
-import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManagerImpl;
 import lombok.Data;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
