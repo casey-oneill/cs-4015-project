@@ -2,8 +2,8 @@ package com.cs4015.bookstore.bookservice.bean;
 
 import javax.annotation.PostConstruct;
 
-import com.cs4015.bookstore.bookservice.core.user.model.User;
-import com.cs4015.bookstore.bookservice.core.user.services.UserService;
+import com.cs4015.bookstore.api.core.user.models.User;
+import com.cs4015.bookstore.api.core.user.services.UserService;
 import com.cs4015.bookstore.bookservice.util.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
