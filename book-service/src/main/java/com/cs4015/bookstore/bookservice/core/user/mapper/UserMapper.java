@@ -16,7 +16,8 @@ public class UserMapper {
         }
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setUserId(user.getUserId());
+        if(user.getUserId() != null)
+            userEntity.setUserId(user.getUserId());
         userEntity.setUsername(user.getUsername());
         userEntity.setFullName(user.getFullName());
         userEntity.setPassword(user.getPassword());
