@@ -58,11 +58,11 @@ Here are four key design patterns that we have identified as essential to our ap
 ### Problem
   - Our project contains many different layers. To pass data between them, a lot of different components must be used (as shown in the [Explanation of Software](#implementation) section).
   - Only layers that *need* to communicate should know about each other. (For example, the User Interface Layers should not use any components from the Database Persistence Layer).
+![Facade Pattern UML](images/uml-facade-pattern-2.png)
 ### Solution
   - We use the facade pattern to provide simplified interfaces to each layer's set of classes.
 ### Implementation
 ![Facade Pattern UML](images/uml-facade-pattern-1.png)
-![Facade Pattern UML](images/uml-facade-pattern-2.png)
 
 ## Adapter Pattern
 ### Problem
