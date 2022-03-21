@@ -30,6 +30,13 @@ http://localhost:8080/openapi/swagger-ui/index.html
   ```aidl
   docker-compose build book  
   ```
+- After the bookstore service is started, you could reach the book store via http://localhost:8080/
+    - You could create a new user by click on the "Sign Up" menu.
+    - Or use the our demo accout to login
+    ```
+    username: pmollins
+    password: 123455
+    ```
 
 ### For Developing
 - Run the following command to intialize the MySQL container:
