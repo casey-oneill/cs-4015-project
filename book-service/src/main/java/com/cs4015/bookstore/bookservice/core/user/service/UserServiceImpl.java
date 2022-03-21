@@ -1,7 +1,9 @@
 package com.cs4015.bookstore.bookservice.core.user.service;
 
+import com.cs4015.bookstore.api.core.user.models.User;
 import com.cs4015.bookstore.api.core.user.services.UserService;
 import com.cs4015.bookstore.api.exceptions.InvalidInputException;
+import com.cs4015.bookstore.api.exceptions.NotFoundException;
 import com.cs4015.bookstore.bookservice.core.user.manager.UserManager;
 import com.cs4015.bookstore.bookservice.core.user.mapper.UserMapper;
 import com.cs4015.bookstore.bookservice.core.user.model.UserEntity;
@@ -11,6 +13,9 @@ import com.cs4015.bookstore.util.ServiceUtil;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserServiceImpl implements UserService {
@@ -24,31 +29,32 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserEntity getUser(long userId){
+    public User getUser(long userId){
         logger.info("/Users return a user.");
         if(userId < 1){
             throw new InvalidInputException("Invalid userId: " + userId);
         }
+    }
 
     @Override
-    public UserEntity updateUserEntity(UserEntity user, long userId) {
+    public User updateUser(User user, long userId) {
         logger.debug("PUT: /users, update a user {}", user);
         if (userId < 1) {
             throw new InvalidInputException("Invalid userId: " + userId);
         }
-        if (userManger.getUserById(userId).isEmpty()) {
+        if (userManager.getUserById(userId).isEmpty()) {
             throw new NotFoundException("No User found for userId: " + userId);
         }
         user.setUserId(userId);
 
         User updateUser = userManager.saveUser(user).orElseThrow(() ->new BadRequestException("An error occurs to update the user:  " + user.toString()));
-        return updateUserEntity(user, userId);
+        return updateUser(user, userId);
     }
     
     @Override
-    public UserEntity addUser(UserEntity user) {
+    public User addUser(User user) {
         logger.debug("POST: /users, add a new User {}", user);
-        UserEntity updateUser = UserManger.saveUser(user).orElseThrow(() -> new BadRequestException("An error occurs to save the user:  " + user.toString()) );
+        User updateUser = userManager.saveUser(user).orElseThrow(() -> new BadRequestException("An error occurs to save the user:  " + user.toString()) );
         return updateUser;
     }
 
@@ -62,6 +68,7 @@ public class UserServiceImpl implements UserService {
         repository.delete(userEntity);
     }
 
+    /*
     @Override
     public List<UserEntity> getAllUsers(int page, int offset) {
         if (page <= 0)
@@ -71,31 +78,7 @@ public class UserServiceImpl implements UserService {
         List<UserEntity> rtnUsers = UserManger.getAllUserWithPagination(page, offset).get();
         return rtnUsers;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    */
 
 }
