@@ -61,7 +61,8 @@ Here are four key design patterns that we have identified as essential to our ap
 ### Solution
   - We use the facade pattern to provide simplified interfaces to each layer's set of classes.
 ### Implementation
-![Facade Pattern UML](images/uml-facade-pattern.png)
+![Facade Pattern UML](images/uml-facade-pattern-1.png)
+![Facade Pattern UML](images/uml-facade-pattern-2.png)
 
 ## Adapter Pattern
 ### Problem
