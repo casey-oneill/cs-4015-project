@@ -35,7 +35,7 @@ http://localhost:8080/openapi/swagger-ui/index.html
     - Or use the following demo accout to login
     ```
     username: pmollins
-    password: 123455
+    password: 123456
     ```
 
 ### For Developing
