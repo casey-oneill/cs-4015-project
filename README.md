@@ -7,6 +7,11 @@ API documents, please go to:
 http://localhost:8080/openapi/swagger-ui/index.html
 
 ## Project Setup
+### Build the Project
+- The proejct is managed by Gradle. After checkout the porject, run the following command at the porject's root folder to inital and build the project.
+    ```
+    ./gradlew build     
+    ```
 ### Run the Project
 - The bookstore project is wrapped into the docker image.
     -  To start the project, simply run the following commands: 
