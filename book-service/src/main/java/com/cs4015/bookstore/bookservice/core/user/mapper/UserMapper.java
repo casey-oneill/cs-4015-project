@@ -3,8 +3,11 @@ package com.cs4015.bookstore.bookservice.core.user.mapper;
 import com.cs4015.bookstore.api.core.user.models.User;
 import com.cs4015.bookstore.bookservice.core.user.model.UserEntity;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Optional;
 
+@Component
 public class UserMapper {
 
     public Optional<UserEntity> apiToEntity(User user) {

@@ -10,9 +10,11 @@ import com.cs4015.bookstore.util.ServiceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class UserManagerImpl implements UserManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserManagerImpl.class);
@@ -37,10 +39,10 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public Optional<User> saveUser(User user) {
-        UserEntity updateUser = userMapper.apiToEntity(user).get();
         try {
-            updateUser = repository.save(updateUser);
-            return userMapper.entityToApi(updateUser);
+            UserEntity userEntity = userMapper.apiToEntity(user).get();
+            userEntity = repository.save(userEntity);
+            return userMapper.entityToApi(userEntity);
         } catch(Exception ex) {
             logger.error("Error to update a user {} ", user);
             throw ex;

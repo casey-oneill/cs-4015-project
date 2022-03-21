@@ -99,7 +99,6 @@ public class SellBookMB {
 			}
 			
 			try {
-				//Optional<Book> result = bookManager.saveBook(book);
 				userBookManager.addBookToUser(currentUser.getUserId(), book);
 				messageService.showInfoMessage("Posting created successfully.");
 			} catch (Exception e) {

@@ -5,8 +5,6 @@ import com.cs4015.bookstore.api.core.user.services.UserService;
 import com.cs4015.bookstore.api.exceptions.InvalidInputException;
 import com.cs4015.bookstore.api.exceptions.NotFoundException;
 import com.cs4015.bookstore.bookservice.core.user.manager.UserManager;
-import com.cs4015.bookstore.bookservice.core.user.model.UserEntity;
-import com.cs4015.bookstore.bookservice.core.user.repository.UserRepository;
 import com.cs4015.bookstore.util.ServiceUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
