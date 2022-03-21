@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/signup.xhtml").permitAll()
+				.antMatchers("/signup.xhtml", "/openapi/**").permitAll()
 				.and()
 			.authorizeRequests()
 				.antMatchers("/", "/login.xhtml", "/javax.faces.resource/**").permitAll()

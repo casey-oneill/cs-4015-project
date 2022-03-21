@@ -13,7 +13,7 @@ CREATE TABLE books(
     book_type   VARCHAR(31)     NOT NULL,
     id          BIGINT(20)      NOT NULL AUTO_INCREMENT,
     authors     VARCHAR(255),
-    description VARCHAR(255),
+    description longtext,
     photo_urls  VARCHAR(255),
     price       double          NOT NULL,
     title       VARCHAR(255),
