@@ -56,12 +56,19 @@ Here are four key design patterns that we have identified as essential to our ap
 
 ## Facade Pattern
 ### Problem
-  - Our project contains many different layers. To pass data between them, a lot of different components must be used (as shown in the [Explanation of Software](#implementation) section).
-  - Only layers that *need* to communicate should know about each other. (For example, the User Interface Layers should not use any components from the Database Persistence Layer).
-  - The front end clentss are tightly coupled with the systems claesses. Therefore any change or add a new service into the system will impact all the exiciting classes that are involved.
+The Book Stroe service has divided it into subsystems to reduce complexities. For example, we have BookService to manage all the business logic of books, UserServices to manage users' business logic. And we have implemented the Spring JPA Data library to manage MySQL dada to CRUD (create, read, update and delete). Further than that, there are dependencies between those subsystems are exist. However, clients (frontend, mobile device, etc.) interacting with those subsystems classes to fulfill business requirements can result in a significant level of complexity. </p>
+The Book Store app is designed for seller to sell their used textbook. To allow Seller to add and display the used books for sell, the following service complete the process:
+  - **BookManager service**: Check the bookstore database running on MySQL for the book's availability.
+  - **UserManager service**: Manager the user profile information.
+  - **UserBookManager service**: Manager the books for sellers. The seller could add a text, list all the books he wants to sell, and he also cold removed his book from the display list.
+  - **Spring MVC Controller**: A controller interacts with the preceding services for list books. When a user interacts with the UI to manger the used textbooks that he wants to sell, the request is mapped to the controllers, which is run interacts with the services to fulfill the request and then respond to the correct information and status of the request.
+
+The used books selling store is a web-based app. But we also plan to make a selling apps are to support mobile clients. So the users could download the app and manage their books for sale from their devices. The following diagram shows how different clients interact with used book store services and their complexity.</p>
 ![Facade Pattern UML](images/uml-facade-pattern-2.png)
+From the above diagram, we could see that the front end clients are tightly coupled with the systems classes. Therefore, if we add or update some part of the services, there will impact the existing system. For example, add a review service to manager user’s review of the sellers; all of the interacted classes need to update to adapt to the new service. </p>
+
 ### Solution
-  - We use the facade pattern to provide simplified interfaces to each layer's set of classes.
+  Accordingly, we can implement Facade Pattern into the systems. We are creating a façade class, UserService. Clients can interact with faced classes for users' book management instead of interact with individual subsystem services.
 ### Implementation
 ![Facade Pattern UML](images/uml-facade-pattern-1.png)
 
