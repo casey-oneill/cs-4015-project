@@ -32,7 +32,7 @@ http://localhost:8080/openapi/swagger-ui/index.html
   ```
 - After the bookstore service is started, you could reach the book store via http://localhost:8080/
     - You could create a new user by click on the "Sign Up" menu.
-    - Or use the our demo accout to login
+    - Or use the following demo accout to login
     ```
     username: pmollins
     password: 123455
