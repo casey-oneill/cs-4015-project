@@ -1,7 +1,5 @@
 package com.cs4015.bookstore.api.core.book.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.List;
 
 public class PaperBackBook extends Book{

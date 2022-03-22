@@ -9,7 +9,7 @@ import com.cs4015.bookstore.api.core.book.models.DigitalBook;
 import com.cs4015.bookstore.api.core.book.models.DigitalFormat;
 import com.cs4015.bookstore.api.core.book.models.HardCoverBook;
 import com.cs4015.bookstore.api.core.book.models.PaperBackBook;
-import com.cs4015.bookstore.bookservice.core.user.model.User;
+import com.cs4015.bookstore.api.core.user.models.User;
 
 /**
  * Provides book listing information by combining book and user data.

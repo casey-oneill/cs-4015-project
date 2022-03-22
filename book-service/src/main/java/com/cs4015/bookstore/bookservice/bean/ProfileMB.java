@@ -6,9 +6,9 @@ import javax.annotation.PostConstruct;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
 import com.cs4015.bookstore.api.core.book.models.UserBooks;
+import com.cs4015.bookstore.api.core.user.models.User;
 import com.cs4015.bookstore.bookservice.core.book.manager.BookManager;
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
-import com.cs4015.bookstore.bookservice.core.user.model.User;
 import com.cs4015.bookstore.bookservice.util.CurrentUserProvider;
 import com.cs4015.bookstore.bookservice.util.MessageService;
 

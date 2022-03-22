@@ -101,7 +101,11 @@ api:
         200 - Ok.
         ## Any book request errors.
         422 - An **Unprocessable Entity** error will be returned
-
+  user-service:
+    get-user:
+      description: Create a user profile and save it into database.
+      notes: |
+        Create a user profile based on the user inforamtion that provide in the request body. If the user profile is successfully create in the database, return 200 with the user profile info.
 
 
 server.port: 7001

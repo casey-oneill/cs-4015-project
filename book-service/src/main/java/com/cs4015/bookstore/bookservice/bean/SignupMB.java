@@ -2,8 +2,8 @@ package com.cs4015.bookstore.bookservice.bean;
 
 import javax.annotation.PostConstruct;
 
-import com.cs4015.bookstore.bookservice.core.user.model.User;
-import com.cs4015.bookstore.bookservice.core.user.services.UserService;
+import com.cs4015.bookstore.api.core.user.models.User;
+import com.cs4015.bookstore.bookservice.core.user.manager.UserManager;
 import com.cs4015.bookstore.bookservice.util.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import lombok.Data;
 public class SignupMB {
 	
 	@Autowired
-	private UserService bookService;
+	private UserManager userManager;
 
 	@Autowired
 	private MessageService messageService;
@@ -33,7 +33,7 @@ public class SignupMB {
 
 	public void createUser() {
 		try {
-			bookService.saveUser(user);
+			userManager.saveUser(user);
 			messageService.showInfoMessage("User created successfully.");
 		} catch (DataIntegrityViolationException e) {
 			messageService.showErrorMessage("There is already a user with this username.");

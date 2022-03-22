@@ -1,6 +1,7 @@
 package com.cs4015.bookstore.bookservice.util;
 
-import com.cs4015.bookstore.bookservice.core.user.model.User;
+
+import com.cs4015.bookstore.api.core.user.models.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
