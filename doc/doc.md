@@ -27,33 +27,37 @@
 
 # Explanation of Software
 ## Overview
-We have used Java frameworks to develop a fully functioning web application for buying and selling used textbooks leveraging a microservices architecture. Our application is complete with:
+We have used Java frameworks to develop a fully functioning web application for buying and selling used textbooks. Our application leverages a monolithic architecture but features REST endpoints, meaning that it can be transformed into a microservices application with minimal effort. Our application features:
 - REST endpoints
-- A professional user interface
-- Persistent data
+- Rich documentation of REST endpoints following the OpenAPI specification
+- A professional user interface (UI)
+- Data persistence
 - User login and authentication
 
 The key technologies that we are using are:
-- Spring Boot
-- Spring Data JPA
-- Spring Security
-- MySQL
-- Java Servlet Faces (configured and integrated with PrimeFaces and Bootstrap using the AdminFaces template)
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+- [Spring Security](https://spring.io/projects/spring-security)
+- [MySQL](https://www.mysql.com/)
+- [JavaServer Faces](https://www.oracle.com/java/technologies/javaserverfaces.html) (configured and integrated with the [AdminFaces](https://adminfaces.github.io/site/) template, which also provides a UI template)
+- [OpenAPI](https://swagger.io/resources/open-api/)
 
-These frameworks – in particular, the Spring* frameworks – incorporate a variety of design patterns in order to provide functionality for our application. Working with these technologies has helped all of us to better understand and observe real-world usage and good implementation of design patterns. By leveraging these frameworks and, by extension, the good design patterns and practices used by them, we seek to create an extensible, reusable, and maintainable web application.
+These frameworks – in particular, the Spring* frameworks – incorporate a variety of design patterns in order to provide functionality for our application. Observing and working with these technologies has helped all of us to better understand real-world usage and good implementation of design patterns. Conversely, our knowledge of design patterns from this class helped us to better understand the functions and proper usage of each framework. In creating this application, we have all gained valuable experience using design patterns.
+
+By leveraging these frameworks and, by extension, the good design patterns and practices used by them, we seek to create an extensible, reusable, and maintainable web application.
 
 ## Implementation
-1. User Interface Layer
-     - `/book-service/.../java/.../bean/*MB.java` classes: leverage JSF framework to provide information and functionality to user interface screens.
-     - `/book-service/.../webapp/*.xhtml` files: define user interface screens using a combination of plain HTML and [PrimeFaces](https://www.primefaces.org/showcase/index.xhtml?jfwid=71d71) elements.
-2. Database Persistence Layer
-    - `/book-service/.../java/.../core/*` folders: contain data persistence configuration for `book` and `user` entities. The structure and implementation of each package (book and user) are identical.
-    - `/book-service/java/.../core/.../model/*Entity.java` classes: use Spring Boot JPA annotation to define database persistence entity classes. The `@Table` annotation declares which DB table each entity reflects.
-    - `/book-service/java/.../core/.../repository/*Repository.java` classes: use Spring Boot JPA framework to provide access to the information stored in the database. Basic CRUD operations are automatically implemented by extending the `JpaRepository` class. Additional functionality (ex. get users by username) is given by defining additional methods which follow specific JPA naming conventions (ex. `findByUsername(String username)`).
-3. API Layer
-   - `/api/.../core/book/models` and `/api/.../core/user/models`: contain DTO objects responsible for carrying data between the User Interface and Database Persistence layers. `/book-service/java/.../core/mapper/*Mapper.java` classes are used to convert DTO objects to DB entities, and vice-versa.
-   - `/api/.../core/book/services/BookService.java` and `/api/.../core/user/services/UserService.java` classes: interfaces using Spring Boot annotations to define the REST endpoints of our application. Enpoints are defined using the `@*Mapping` annotations. Each endpoint is documented using the OpenAPI annotations (`@Operation`, `@ApiResponses`). These interfaces are implemented in the `/book-service/java/.../core/service/*ServiceImpl.java` classes.
-   - `/book-service/java/.../core/manager/*.java` provide `*Repository.java` functionalities to `*ServiceImpl.java` implementations. They use the `/book-service/java/.../core/mapper/*Mapper.java` classes to convert DB entity data from repository classes to DTO objects used by the API and User Interface layers.
+1. User Interface (UI) Layer
+     - `/book-service/.../java/.../bean/*MB.java` classes: leverage the Spring Boot and JSF frameworks to provide information and functionality to UI screens.
+     - `/book-service/.../webapp/*.xhtml` files: define UI screens using a combination of plain HTML and [PrimeFaces](https://www.primefaces.org/showcase/index.xhtml?jfwid=71d71) elements.
+2. Database Persistence (DB) Layer
+    - `/book-service/.../java/.../core/*` folders: contain data persistence configuration for `book` and `user` entities. The structure and implementation of each package (book and user) are essentially identical.
+    - `/book-service/java/.../core/.../model/*Entity.java` classes: use JPA annotations to define database persistence entity classes. The `@Table("table_name")` annotation defines which DB table each entity reflects.
+    - `/book-service/java/.../core/.../repository/*Repository.java` classes: leverage the JPA framework to provide access to the information stored in the database. Basic CRUD operations are automatically implemented by extending the `JpaRepository` class. Additional functionality (ex. get users by username) is given by defining additional methods following specific JPA naming conventions (ex. `findByUsername(String username)`).
+3. Application Programming Interface (API) Layer
+   - `/api/.../core/book/models` and `/api/.../core/user/models` folders: contain DTO objects responsible for carrying data between the UI and DB layers. `/book-service/java/.../core/mapper/*Mapper.java` classes are used to convert DTO objects to DB entities, and vice-versa.
+   - `/api/.../core/book/services/BookService.java` and `/api/.../core/user/services/UserService.java` classes: interfaces using Spring Boot annotations to define the REST endpoints of our application. Endpoints are defined using the `@*Mapping` annotations. Each endpoint is documented using the OpenAPI annotations (`@Operation`, `@ApiResponses`). These interfaces are implemented in the `/book-service/java/.../core/service/*ServiceImpl.java` classes.
+   - `/book-service/java/.../core/manager/*.java` provide `*Repository.java` functionalities to `*ServiceImpl.java` implementations. They use the `/book-service/java/.../core/mapper/*Mapper.java` classes to convert DB entity data from repository classes to DTO objects used by the API and UI layers.
 
 # Four Design Patterns
 Here are four key design patterns that we have identified as essential to our application:
