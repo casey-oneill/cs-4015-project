@@ -144,7 +144,7 @@ Here is what each group member contributed to the project:
   - Configured database persistence for Book entities
   - Created UML diagram describing facade pattern implementation
   - Dockerized application
-  - Wrote factory pattern section of project report
+  - Wrote facade and factory pattern section of project report
 - Logan Fitzpatrick
   - Refactored backend code for consistency:
     - Re-wrote database persistence implementation for User entities
