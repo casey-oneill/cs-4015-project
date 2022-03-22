@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
             throw new InvalidInputException("Invalid userId: " + userId);
         }
 
-        return null; // FIXME: Finish implementation
+        return userManager.getUserById(userId).orElseThrow(() -> new NotFoundException("No user found for user id: " + userId)); // FIXME: Finish implementation
     }
 
     @Override

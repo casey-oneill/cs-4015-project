@@ -44,7 +44,7 @@ public class BuyBookMB {
 	public void init() {
 		allBooks = new ArrayList<>();
 
-		Optional<List<Book>> bookResults = bookManager.getAllBookWithPagination(1, 0);
+		Optional<List<Book>> bookResults = bookManager.getAllBookWithPagination(1, 100);
 		if (bookResults.isPresent()) {
 			for (Book book : bookResults.get()) {
 				Optional<User> userResult = userManager.getUserById(book.getUserId());
