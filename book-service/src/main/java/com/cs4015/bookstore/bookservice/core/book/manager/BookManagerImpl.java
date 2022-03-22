@@ -46,8 +46,8 @@ public class BookManagerImpl implements BookManager {
 
     @Override
     public Optional<Book> saveBook(Book book) {
-        BookEntity updateBook = bookMapper.apiToEntity(book).get();
         try {
+            BookEntity updateBook = bookMapper.apiToEntity(book).get();
             updateBook = repository.save(updateBook);
             return bookMapper.entityToApi(updateBook);
         } catch(Exception ex) {
@@ -68,26 +68,28 @@ public class BookManagerImpl implements BookManager {
 
     @Override
     public Optional<List<Book>> getAllBookWithPagination(int page, int offset) {
-        if (page <= 0)
+        if (page <= 0) {
             page = 1;
-        if (offset <= 0)
+        }
+        if (offset <= 0) {
             offset = 10;
+        }
+        
         try {
             Pageable pageable = PageRequest.of(page - 1, offset, Sort.Direction.ASC, "id");
             Page<BookEntity> books = repository.findAll(pageable);
             List<BookEntity> bookEntities = books.getContent();
             List<Book> rtnBooks = bookEntities.stream().map(entity -> bookMapper.entityToApi(entity).get()).collect(Collectors.toCollection(ArrayList<Book>::new));
             return Optional.of(rtnBooks);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             logger.error("An error to get AllBooks {}", ex);
             throw ex;
         }
-
     }
 
     @Override
     public Optional<List<Book>> getBooksByUserId(long userId) {
-        logger.debug("Get users " + userId + "books.");
+        logger.debug("Get books for user " + userId);
         try {
             List<BookEntity> bookEntities = repository.findByUserId(userId).get();
             List<Book> rtnBooks = bookEntities.stream().map(entity -> bookMapper.entityToApi(entity).get()).collect(Collectors.toCollection(ArrayList<Book>::new));

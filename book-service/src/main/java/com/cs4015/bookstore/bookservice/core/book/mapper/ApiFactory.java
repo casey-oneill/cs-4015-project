@@ -6,22 +6,21 @@ import com.cs4015.bookstore.bookservice.core.book.model.DigitalBookEntity;
 import com.cs4015.bookstore.bookservice.core.book.model.HardCoverBookEntity;
 import com.cs4015.bookstore.bookservice.core.book.model.PaperBackBookEntity;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ApiFactory {
 
     BookEntity bookEntity;
 
-    public BookEntity toEntity(Book api){
+    public BookEntity toEntity(Book api) {
         bookEntity = null;
-        if(api == null){
+        if (api == null) {
             return null;
         }
 
         String bookType = api.getBookType();
 
-        switch(bookType){
+        switch(bookType) {
             case BookType.Values.DIGITAL:
                 DigitalBook dBook = (DigitalBook) api;
                 DigitalBookEntity dEntity = new DigitalBookEntity();
@@ -43,10 +42,10 @@ public class ApiFactory {
                 break;
         }
 
-        if(api.getBookId() != null) {
+        if (api.getBookId() != null) {
             bookEntity.setId(api.getBookId());
         }
-        if(api.getUserId() != null) {
+        if (api.getUserId() != null) {
             bookEntity.setUserId(api.getUserId());
         }
         bookEntity.setTitle(api.getTitle());

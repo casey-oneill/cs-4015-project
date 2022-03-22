@@ -2,9 +2,10 @@ package com.cs4015.bookstore.bookservice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import com.cs4015.bookstore.bookservice.core.user.model.User;
-import com.cs4015.bookstore.bookservice.core.user.services.UserService;
+import com.cs4015.bookstore.api.core.user.models.User;
+import com.cs4015.bookstore.bookservice.core.user.manager.UserManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	UserService userService;
+	UserManager userManager;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -29,13 +30,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
 		// Database connection for custom login
-		User validatedUser = userService.validateUserCredentials(user, password);
-		if (validatedUser != null) {
+		Optional<User> validatedUser = userManager.validateUserCredentials(user, password);
+		if (validatedUser.isPresent()) {
 			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		}
 
 		if (grantedAuthorities.size() > 0) {
-			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(validatedUser, password, grantedAuthorities);
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(validatedUser.get(), password, grantedAuthorities);
 			return authenticationToken;
 		}
 

@@ -2,12 +2,9 @@ package com.cs4015.bookstore.bookservice.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
-import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManagerImpl;
-import com.cs4015.bookstore.bookservice.core.user.model.User;
 import lombok.Data;
 
 import com.cs4015.bookstore.api.core.book.models.Book;
@@ -17,6 +14,7 @@ import com.cs4015.bookstore.api.core.book.models.DigitalBook;
 import com.cs4015.bookstore.api.core.book.models.DigitalFormat;
 import com.cs4015.bookstore.api.core.book.models.HardCoverBook;
 import com.cs4015.bookstore.api.core.book.models.PaperBackBook;
+import com.cs4015.bookstore.api.core.user.models.User;
 import com.cs4015.bookstore.bookservice.core.book.manager.BookManagerImpl;
 import com.cs4015.bookstore.bookservice.core.book.manager.UserBookManager;
 import com.cs4015.bookstore.bookservice.util.CurrentUserProvider;
@@ -101,7 +99,6 @@ public class SellBookMB {
 			}
 			
 			try {
-				//Optional<Book> result = bookManager.saveBook(book);
 				userBookManager.addBookToUser(currentUser.getUserId(), book);
 				messageService.showInfoMessage("Posting created successfully.");
 			} catch (Exception e) {
