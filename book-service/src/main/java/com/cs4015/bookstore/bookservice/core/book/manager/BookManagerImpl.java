@@ -72,7 +72,7 @@ public class BookManagerImpl implements BookManager {
             page = 1;
         }
         if (offset <= 0) {
-            offset = 10;
+            offset = 100;
         }
         
         try {
