@@ -19,6 +19,10 @@
     - [Problem](#problem-2)
     - [Solution](#solution-2)
     - [Implementation](#implementation-3)
+  - [Singleton Pattern](#singleton-pattern)
+    - [Problem](#problem-3)
+    - [Solution](#solution-3)
+    - [Implementation](#implementation-4)
 - [Contributions](#contributions)
 
 # Explanation of Software
@@ -68,7 +72,7 @@ The used books selling store is a web-based app. But we also plan to make a sell
 From the above diagram, we could see that the front end clients are tightly coupled with the systems classes. Therefore, if we add or update some part of the services, there will impact the existing system. For example, add a review service to manager user’s review of the sellers; all of the interacted classes need to update to adapt to the new service. </p>
 
 ### Solution
-  Accordingly, we can implement Facade Pattern into the systems. We are creating a façade class, UserService. Clients can interact with faced classes for users' book management instead of interact with individual subsystem services.
+Accordingly, we can implement Facade Pattern into the systems. We are creating a façade class, UserService. Clients can interact with faced classes for users' book management instead of interact with individual subsystem services.
 ### Implementation
 ![Facade Pattern UML](images/uml-facade-pattern-1.png)
 
@@ -98,6 +102,20 @@ From the above diagram, we could see that the front end clients are tightly coup
   - Use the factory pattern to define `APIFactory` and `EntityFactory` classes who, when given a `Book` or `BookEntity` object, will instantiate and return the appropriate subclass for that object.
 ### Implementation
 ![Factory Pattern Implementation](images/uml-factory-pattern.png)
+
+## Singleton Pattern
+### Problem
+We use special Java classes called management beans to provide information to the UI screens and receive/store information coming from the UI screens. Management beans also give the UI screens access to application functionalities by allowing the UI to call any public method of a management bean. These beans are defined using the Spring framework's `@Component` annotation. The JSF framework makes these management beans accessible to the UI screens.
+
+Additionally, we want some management beans (ex. the sell book screen) to user input information even if the user navigates away from that screen's management bean.
+
+### Solution
+We use the Spring Boot framework's `@SessionScope` annotation to define those management beans that should be persistent between views. But how does Spring Boot make this possible? It uses the singleton pattern that we have studied in class. In fact, every management bean is treated as a singleton, even those not marked with the `@SessionScope` annotation. However, if this annotation is not used on a management bean, Spring Boot with destroy that management bean's singleton instance upon each new request.
+
+Because Spring Boot is a web application development framework, it uses multi-threading to ensure that mangement bean singletons can be safely accessed by many users concurrently. By studying the way that Spring Boot implements the singleton pattern, for the purpose of leveraging their implementation for ourselves, we have learned a lot about the singleton pattern, as it is used by professional developers.
+
+### Implementation
+This design pattern is implemented by the Spring Boot framework.
 
 # Contributions
 This project was made possible through the hard work and dedication of all 5 team members. Each team member provided a unique set of skills to the project, and not all contributions are reflected in the number of commits made to the codebase. Because not all team members were familiar with the Spring Boot Framework, a lot of their contribution was made either later in project’s development (once they had time to learn about Spring) or during the requirements/design phase of the project.
